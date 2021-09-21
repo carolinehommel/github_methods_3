@@ -108,34 +108,104 @@ The green is the predicted linear line and the dots are the actual/observed valu
 ```{r}
 n <- 32
 const <- rep(1,n)
-design_matrix <- cbind(const, X)
+design_matrix <- cbind(const, mtcars$wt, (mtcars$wt)^2)
+#udregner intercept og to forskellige slopes. 
+beta_ols <- solve(t(design_matrix)%*%design_matrix)%*%t(design_matrix)%*%Y
+
 ```
 
 3. compare your acquired $\hat{\beta}$ with the output of the corresponding quadratic model created using __lm__ (hint: use the function __I__, see details under help and the sub-section formula operators here: https://www.datacamp.com/community/tutorials/r-formula-tutorial)  
-    i. create a plot that illustrates $Y$ and $\hat{Y}$ (if you are feeling ambitious, also include $\epsilon$ (hint: you can use the function __arrows__))  
+
+```{r}
+#creating a new lm with the Y predicted by the design matrix (which has the weight and the weight^2 in two columns)
+lm_compare <- lm(Y ~ design_matrix [,2] + design_matrix [,3])
+
+summary(lm_compare)
+
+```
+The values from the ols_beta (49.93 and -13.38 and 1.17) are the same as those from the second lm calculated with the design matrix. So the lm function uses the formula I used in the beta_ols and that is why the values are the same. One thing we calculated 'manually' the other with lm.
+
+
+i. create a plot that illustrates $Y$ and $\hat{Y}$ (if you are feeling ambitious, also include $\epsilon$ (hint: you can use the function __arrows__)) 
+    
+```{r}
+#now we will compare some predicted y-values with the observed ones from the mtcars data set
+design_matrix <- as.matrix(design_matrix)
+yhat <- design_matrix%*%beta_ols
+
+plot(Y, yhat)
+abline(a = 0, b = 1, col = "red")
+# a=intercept and b er hældning, så laver bare en hel standard linje for at sammenligne predictions med the observed values. Havde de været perfekte havde de self fulgt den orange flotte lige linje. 
+```
 
 ## Exercise 2
 Compare the plotted quadratic fit to the linear fit  
+```{r}
+plot(Y, Y_hat)
+abline(a=0, b=1, col="green")
 
-1. which seems better?  
+plot(Y, yhat)
+abline(a=0, b=1, col="yellow")
+```
+1. Which seems better?  
+The quadratic (number 2) seems to catch the tendencies of the data a little bit better than the first one. This can be seen as the errors are more evenly distributed along the line in the quadratic plot. 
+
+
 2. calculate the sum of squared errors, (show the calculation based on $\epsilon$). Which fit has the lower sum?  
+```{r}
+sum((Y-Y_hat)^2)
+
+sum((Y-yhat)^2)
+
+#sum((model$residuals)^2)
+```
+The sum of the squared errors is lower for the quadratic model, which means that it's differences between observed values and predicted values are lower than the ones from the linear fit. Ergo the quadratic fit is better. 
+
 3. now make a cubic fit ($y = {\beta}_{3} x^3 + {\beta}_{2} x^2 + {\beta}_{1} x + {\beta}_{0}$) and compare it to the quadratic fit  
-    i. create a plot that illustrates $Y$ and $\hat{Y}$ for both the cubic and the quadratic fits (plot them in the same plot)  
+```{r}
+cubic_fit <- cbind( design_matrix, (mtcars$wt)^3)
+
+#added cubic fit to the model in a new column
+lm_cubic_compare <- lm(Y ~ design_matrix [,2] + design_matrix [,3] + cubic_fit [,4])
+
+```   
+
+   i. create a plot that illustrates $Y$ and $\hat{Y}$ for both the cubic and the quadratic fits (plot them in the same plot)
+```{r}
+both_plot <- ggplot(mtcars, aes(x = wt, y = mpg))+
+  geom_point()+
+  stat_smooth(method = "lm", formula = y ~ x + I(x^2), size = 1, se = FALSE)+
+  stat_smooth(method = "lm", formula = y ~ x + I(x^2) + I(x^3), size = 1, color = "green", se = FALSE)
+both_plot
+```
     ii. compare the sum of squared errors  
-    iii. what's the estimated value of the "cubic" (${\beta}_3$) parameter? Comment on this!  
+```{r}
+sum((Y-yhat)^2)
+sum((lm_cubic_compare$residuals)^2)
+```
+The cubic fit is a tiny bit lower and thereby better
+
+  iii. what's the estimated value of the "cubic" (${\beta}_3$) parameter? 
+```{r}
+coef(lm_cubic_compare)
+```
+  It's a small number, so it doesn't have great influence on the model. (0.04593)
+
+
 4. bonus question: which summary statistic is the fitted value (_Intercept_ or ${\beta}_0$ in $y = {\beta}_0$) below identical to?
 ```{r, echo=FALSE}
 lm(mpg ~ 1, data=mtcars)
 ```
+
 ## Exercise 3
 Doing a logistic regression - estimating the probability that a car has automatic transmission (0) or manual transmission (1) based on its weight
 ```{r, eval=FALSE}
 data(mtcars)
-logistic.model <- glm(formula=..., data=..., family='binomial)
+logistic.model <- glm(formula= am ~ wt, data=mtcars, family='binomial')
 ```
 
 Probabilities live on the range $(0, 1)$ - using the so-called logit function as a "link-function" we can map these onto the range $(-\infty, \infty)$, i.e. the real numbers.  
-  
+
 What we model in this case is: $Pr(y = 1) = logit^{-1}(X \beta)$, i.e. the probability of a car having manual transmission, given its weight. $X \beta$ is called the linear predictor; compare with $Y = X \beta + \epsilon$ 
 It is helpful to define the logit function and its inverse function for the following:  
 
@@ -150,6 +220,9 @@ inv.logit <- function(x) exp(x) / (1 + exp(x))
     i. what's the interpretation of the estimated $\hat{\beta}_0$ (the _Intercept_)
     ii. calculate the estimated probability that the Pontiac Firebird has automatic transmission, given its weight
     iii. bonus question - plot the logistic function and highlight all the cars where we guessed wrongly, if we used the following "quantizer" function:
+```{r}
+getwd()
+```
     
 \begin{equation}
   transmission_{guess}=
