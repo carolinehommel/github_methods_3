@@ -7,6 +7,8 @@ output: html_document
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
+library(tidyverse)
+setwd("/Users/CarolineHommel/Desktop/Uni/Semester tres/Methods 3/methods git/github_methods_3/week_01")
 ```
 
 
@@ -16,7 +18,7 @@ We'll do a light start and get you back in the game of thinking about formulae a
 Finally, we'll have a few exercises, finishing off today's practical exercises 
 
 ## A list of formulae
-```{r, eval=FALSE}
+```{r}
 formula <- y ~ x ## y as a function of x
 y ~ 1 ## model the intercept for "y"
 y ~ x ## model the main effect of x and the intercept for y
@@ -64,7 +66,7 @@ The objectives of today's exercises are:
 3) To estimate models based on binomially distributed data  
 
 If you would like to read more about a given function, just prepend the function with a question mark, e.g.  
-``` {r, eval=FALSE}
+``` {r}
 ?lm
 ```
 
@@ -73,7 +75,7 @@ REMEMBER: In your report, make sure to include code that can reproduce the answe
 ## Exercise 1
 The general linear model: $Y = X \beta + \epsilon$:  
 Do a linear regression, expressing fuel usage as a function of weight using the function __lm__  
-```{r, eval=FALSE}
+```{r}
 data(mtcars)
 model <- lm( mpg ~ wt, data=mtcars)
 summary(model)
@@ -83,7 +85,7 @@ summary(model)
 ```{r}
 model.matrix(model)
 
-#estimates intersept and slope
+#estimates intercept and slope
 beta_hat <- model$coefficients
 
 #hat is an estimate. y = intercept + slope * x (y=ax+b)
@@ -199,7 +201,7 @@ lm(mpg ~ 1, data=mtcars)
 
 ## Exercise 3
 Doing a logistic regression - estimating the probability that a car has automatic transmission (0) or manual transmission (1) based on its weight
-```{r, eval=FALSE}
+```{r }
 data(mtcars)
 logistic.model <- glm(formula= am ~ wt, data=mtcars, family='binomial')
 ```
@@ -220,10 +222,7 @@ inv.logit <- function(x) exp(x) / (1 + exp(x))
     i. what's the interpretation of the estimated $\hat{\beta}_0$ (the _Intercept_)
     ii. calculate the estimated probability that the Pontiac Firebird has automatic transmission, given its weight
     iii. bonus question - plot the logistic function and highlight all the cars where we guessed wrongly, if we used the following "quantizer" function:
-```{r}
-getwd()
-```
-    
+
 \begin{equation}
   transmission_{guess}=
   \begin{cases}
@@ -237,39 +236,5 @@ getwd()
     ii. check the details in the help of the AIC function - which of the models provide the better fit according to the AIC values and the residual deviance respectively?
     iii. in your own words, why might it be good to penalise a model like the quadratic model, we just fitted.
     
-# Next time
-We are going to looking at extending our models with so called random effects. We need to install the package "lme4" for this. Run the code below or install it from your package manager (Linux)  
-```{r, eval=FALSE}
-install.packages("lme4")
-```
-We can fit a model like this:
 
-```{r}
-library(lme4)
-mixed.model <- lmer(mpg ~ wt + (1 | cyl), data=mtcars)
-```
-
-They result in plots like these:
-```{r}
-par(font.lab=2, font.axis=2, cex=1.2)
-plot(mtcars$wt, fitted.values(mixed.model),
-     main='Linear regression with group intercepts (n cylinders)',
-    xlab='Weight (lb/1000)', ylab='Miles/(US) gallon',
-    pch=3)
-```
-
-and this
-```{r}
-mixed.model <- lmer(mpg ~ wt + (wt | cyl), data=mtcars)
-plot(mtcars$wt, fitted.values(mixed.model),
-     main='Linear regression with group intercepts and group slopes (n cylinders)',
-    xlab='Weight (lb/1000)', ylab='Miles/(US) gallon',
-    pch=3)
-``` 
-
-but also new warnings like:  
-
-Warning:
-In checkConv(attr(opt, "derivs"), opt\$par, ctrl = control$checkConv,  :
-  Model failed to converge with max|grad| = 0.0121962 (tol = 0.002, component 1)
 
