@@ -1,0 +1,263 @@
+---
+title: "practical_exercise_2, Methods 3, 2021, autumn semester"
+author: "Caroline Hommel"
+date: "29th of September 2021"
+output:
+  html_document:
+    df_print: paged
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+pacman::p_load('effects')
+#`lmer` is used for multilevel modelling
+library(lme4)
+library(tidyverse)
+```
+
+# Assignment 1: Using mixed effects modelling to model hierarchical data
+In this assignment we will be investigating the _politeness_ dataset of Winter and Grawunder (2012) and apply basic methods of multilevel modelling. 
+```{r}
+politeness <- read.csv('politeness.csv') ## read in data
+```
+
+
+# Exercise 1 - describing the dataset and making some initial plots
+
+##1) Describe the dataset, such that someone who happened upon this dataset could understand the variables and what they contain  
+
+*Subject* The first letter indicates whether it's a male or female (f or m) and the number indicates which number participant it is. 
+
+*Gender* gender of the participant. F for female and m for male. 
+
+*Scenario* The participants have been asked to behave within different scenarios -7 different e.g. asking for a favor or taking orders. 
+
+*Attitude* Whether it's formal or informal in a condition 
+
+*Total duration* For how long the participants are talking
+
+*f0mm* Frequency in hertz
+
+*his_count* The amount of noisy breath intakes during the response. 
+
+  ###i. Also consider whether any of the variables in _politeness_ should be encoded as factors or have the factor encoding removed. Hint: ```?factor```  
+```{r}
+#Changed all characters to factors in one line
+politeness[sapply(politeness, is.character)] <- lapply(politeness[sapply(politeness, is.character)], as.factor)
+
+#Changing scenario from integer to factor
+politeness$scenario <- as.integer(politeness$scenario)
+```
+  
+##2) Create a new data frame that just contains the subject _F1_ and run two linear models; one that expresses _f0mn_ as dependent on _scenario_ as an integer; and one that expresses _f0mn_ as dependent on _scenario_ encoded as a factor  
+```{r}
+#creating a data frame only with data from subject F1
+f1data <- politeness %>% 
+  filter(subject == "F1")
+
+model <- lm(f0mn~scenario, data = f1data)
+
+f1data$scenario <- as.factor(f1data$scenario)
+model2 <- lm(f0mn~scenario, data = f1data)
+```
+
+  ###i. Include the model matrices, $X$ from the General Linear Model, for these two models in your report and describe the different interpretations of _scenario_ that these entail
+```{r}
+#creating design matrices 
+model.matrix(model)
+model.matrix(model2)
+```
+ ###ii. Which coding of _scenario_, as a factor or not, is more fitting?
+Since the scenarios are nominal and cannot be 'compared' to each other, since e.g. scenario 1 is not double as much anything as scenario 2. We need to create two matrices, because the first one doesn't show that all scenarios need to 'weigh' as much as each other.
+
+##3) Make a plot that includes a subplot for each subject that has _scenario_ on the x-axis and _f0mn_ on the y-axis and where points are colour coded according to _attitude_
+```{r warning=TRUE}
+#making a plot of all the subjects 
+ggplot(politeness, aes(x=scenario, y=f0mn, color = attitude))+
+  geom_point()+
+#like random intercept -each subject will get their own little plot
+  facet_wrap(~subject)+
+  theme_minimal()+
+  ylab("Frequency in Hz")+
+  xlab("Scenario")
+```
+
+  ###i. Describe the differences between subjects
+All the M's have lower frequency, which makes sense since it's the plot of the mens voices.It looks like the effect of attitude is larger on some subjects than other.For the men their is almost no difference between informal and polite. 
+
+# Exercise 2  - comparison of models
+```{r}
+example.formula <- formula(dep.variable ~ first.level.variable + (1 | second.level.variable))
+```
+
+##1) Build four models and do some comparisons
+    i. a single level model that models _f0mn_ as dependent on _gender_
+```{r}
+single <- lm(f0mn ~gender, data = politeness)
+```
+  
+  ###ii. a two-level model that adds a second level on top of i. where unique intercepts are modelled for each _scenario_
+```{r}
+twolevel <- lmer(f0mn ~ gender + (1 | scenario), data = politeness)
+```
+
+   ###iii. a two-level model that only has _subject_ as an intercept 
+```{r}
+twolevel2 <- lmer(f0mn ~ gender + (1 | subject), data = politeness)
+```
+   
+  ###iv. a two-level model that models intercepts for both _scenario_ and _subject_
+```{r}
+twolevel3 <- lmer(f0mn ~ gender + (1 | subject) + (1 | scenario), data = politeness)
+```
+  
+  ###v. which of the models has the lowest residual standard deviation, also compare the Akaike Information Criterion `AIC`?
+```{r warning=TRUE}
+AIC(single, twolevel, twolevel2, twolevel3)
+
+tabel <- c('single', 'twolevel', 'twolevel2', 'twolevel3')
+
+#from lme4 -extracting residual standard deviation 
+sigma <- c(sigma(single), sigma(twolevel), sigma(twolevel2), sigma(twolevel3))
+
+as_tibble(rbind(tabel, sigma))
+
+#(or data.frame(rbind(tabel, sigma))
+```
+The two-level model that models intercepts for both _scenario_ and _subject_ has the lowest AIC (2092) and the lowest residual standard deviation (30.65).
+
+  ###vi. which of the second-level effects explains the most variance?
+The model with _subject_ as the second level effect (random intercept) explains the variance the better than the model with _scenario_ as the second level effect. 
+
+##2) Why is our single-level model bad? 
+The model doesn't take individual differences in pitch into account. 
+
+  ###i. create a new data frame that has three variables, _subject_, _gender_ and _f0mn_, where _f0mn_ is the average of all responses of each subject, i.e. averaging across _attitude_ and _scenario_
+```{r}
+#na.omit removes all na'values' from the data set 
+new_df <- politeness %>% 
+  na.omit %>% 
+  group_by(subject, gender) %>% 
+  summarise(avg_f0mn=(mean(f0mn)))
+  
+```
+
+  ###ii. build a single-level model that models _f0mn_ as dependent on _gender_ using this new data set
+```{r}
+new_single <- lm(avg_f0mn~gender, data=new_df)
+```
+
+  ###iii. make Quantile-Quantile plots, comparing theoretical quantiles to the sample quantiles using `qqnorm` and `qqline` for the new single-level model and compare it to the old single-level model (from 1).i). 
+```{r}
+qqnorm(resid(single), pch = 1, frame = FALSE)
+qqline(resid(single), col = "steelblue", lwd = 2)
+
+qqnorm(resid(new_single),pch = 1, frame = FALSE)
+qqline(resid(new_single), col = "steelblue", lwd = 2)
+```
+  Which model's residuals ($\epsilon$) fulfill the assumptions of the General Linear Model better?
+It looks like plot number two with the averaged frequency pr. participant (with the fewest data points) is more linear and the data points look more equally distributed on each side of the blue line. The first model looks more systematically distributed and the data points are not as equally distributed on each sides of the blue line. 
+
+  ###iv. Also make a quantile-quantile plot for the residuals of the  multilevel model with two intercepts. Does it look alright?
+```{r}
+qqnorm(resid(twolevel3),pch = 1, frame = FALSE)
+qqline(resid(twolevel3), col = "steelblue", lwd = 2)
+```
+It is a little better than the others, since there is still some deviation from the line in the outer quantiles, but all along the middle the data points follows the blue line quite well. 
+
+##3) Plotting the two-intercepts model
+    ###i. Create a plot for each subject, (similar to part 3 in Exercise 1), this time also indicating the fitted value for each of the subjects for each for the scenarios (hint use `fixef` to get the "grand effects" for each gender and `ranef` to get the subject- and scenario-specific effects)
+```{r}
+library("lme4")
+data(package = "lme4")
+
+politeness <- politeness %>% na.omit(politeness)
+#new column with the predicted y-values 
+politeness$yhat <- predict(twolevel3)
+
+ggplot(politeness, aes(x = scenario, y = f0mn))+
+  geom_point() + 
+  geom_point(aes(x = scenario, y = yhat), col = "blue", shape = 3) + 
+  facet_wrap(~ subject)+ 
+  xlab('Scenario') +
+  ylab('Hz') +
+  theme_minimal()
+```
+  Blue = predicted and black = the actual observed values.
+  
+
+# Exercise 3 - now with attitude
+
+##1) Carry on with the model with the two unique intercepts fitted ( _scenario_ and _subject_).
+  i. now build a model that has _attitude_ as a main effect besides _gender_
+```{r}
+doubble_model <- lmer(f0mn ~ gender + attitude + (1 | subject) + (1 | scenario), data = politeness)
+```
+
+  ###ii. make a separate model that besides the main effects of _attitude_ and _gender_ also include their interaction
+```{r}
+interaction_model <- lmer(f0mn ~ attitude*gender + (1 | subject) + (1 | scenario), data = politeness)
+```
+  
+  ###iii. describe what the interaction term in the model says about Korean males pitch when they are polite relative to Korean women's pitch when they are polite (you don't have to judge whether it is interesting)  
+
+How much the effects of attitude polite changes when it goes from female to male 
+woman's frequency is influenced more by the change of attitude than male's frequency. 
+But since the error bars overlap the mean frequency could possible lay within this error bar and therefore there is a uncertainty according to if there is an effect. 
+
+
+```{r}
+plot(effects::allEffects(interaction_model))
+plot(allEffects(interaction_model), multiline=TRUE, ci.style="bars")
+```
+
+##2) Compare the three models (1. gender as a main effect; 2. gender and attitude as main effects; 3. gender and attitude as main effects and the interaction between them. For all three models model unique intercepts for _subject_ and _scenario_) using residual variance, residual standard deviation and AIC.
+
+```{r warning=TRUE}
+AIC <-AIC(twolevel3, doubble_model, interaction_model)
+
+#to be able to add the names into a scheme 
+tabel2 <- c('twolevel3', 'doubble_model', 'interaction_model')
+
+#from lme4 -extracting residual standard deviation 
+sigma2 <- c(sigma(twolevel3), sigma(doubble_model), sigma(interaction_model))
+
+#residual variance
+variances <- c(var(resid(twolevel3)), var(resid(doubble_model)),var(resid(interaction_model)))
+
+#collecting them all in one scheme 
+as.tibble(cbind(tabel2, sigma2, AIC, variances))
+```
+The model with gender as the main effect has the highest value in all three methods of comparison. 
+
+##3)  Choose the model that you think describe the data the best - and write a short report on the main findings based on this model.
+
+The data set consists of frequency measurements of 7 men and 9 women. Their voice frequency was measured over 7 different scenarios, in two different attitudes - polite and informal. This means all participants went through 14 trials in total (except for a few missing values). Other variables include gender, hiss count and total duration of the specific trial. 
+
+After running different models on the data, the following model was chosen to investigate the effect of gender and attitude on pitch. 
+
+frequency ~ gender + attitude +  (1 | subject) +  (1 | scenario)
+
+The dependent variable is the pitch frequency, the fixed effects include gender and attitude and subject and scenario are modelled as random intercepts. Since humans naturally have different pitch frequencies, and what we are interested in is how it is changed under certain circumstances, it is relevant to include random intercepts for each subject. If it was not included, the model would not take into account the repeated measurement design of the experiment. Furthermore, if you do not include random intercepts, you would overlook a very clear underlying effect in the data, thus having the risk of not interpreting the model properly. Therefore, including random intercepts for subject and scenario was found important.
+
+This model was chosen since compared to a model with only gender as a fixed effect (and random intercepts for subject and scenario), the chosen model explained more variance. 
+A more complex model including the interaction between gender and attitude could have been chosen, but using the _anova_ function we found the interaction to be insignificant. Thus a simpler model was preferred. 
+
+After building the model a quantile-quantile plot of the chosen model was made testing for the assumption of normality of the residuals.
+
+```{r}
+qqnorm(resid(doubble_model))
+qqline(resid(doubble_model))
+```
+Figure 1. Quantile Quantile plot for the residuals of the multilevel model.
+
+By checking the plot, it was concluded that the model fulfilled the assumption, since most of the points are on the straight line, and we only see a small pattern of deviation at the end of the line. 
+
+Investigating the coefficients, it was found that our intercept was 254.4, showing the average of the women’s pitch frequency in the informal condition. Gender significantly predicts frequency (β = -115.14, p< .001). Additionally, it was found that attitude significantly predicts frequency (β = -14.82, p< .001). This means that males generally have a lower frequency compared to women, and that changing attitude from informal to polite tends to result in a lower frequency when the other variables are held constant. 
+
+We see that there is a higher variance (585.6) and std. dev. (24.20) for the second level effect subject compared to the second level effect of scenario where variance (106.7) and std. dev. (10.33) which means that there is a higher variability within _subjects_ compared to _scenarios_. 
+
+The special thing shown by our model is that both Korean men and womens frequency gets lower in polite scenarios compared to informal scenarios, whereas in many other languages it is the opposite, when in polite scenarios the pitch gets higher for both men and women (Winter, 2013) ergo there are also cultural differences. 
+     
+
+This is written in collaboration with all of study group four.  
