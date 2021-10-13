@@ -236,5 +236,8 @@ inv.logit <- function(x) exp(x) / (1 + exp(x))
     ii. check the details in the help of the AIC function - which of the models provide the better fit according to the AIC values and the residual deviance respectively?
     iii. in your own words, why might it be good to penalise a model like the quadratic model, we just fitted.
     
+```{r}
+getwd()
+```
 
 

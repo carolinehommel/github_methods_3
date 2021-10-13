@@ -1,8 +1,11 @@
 ---
 title: "practical_exercise_3, Methods 3, 2021, autumn semester"
-author: 'Caroline Hommel'
+author: "Caroline Hommel"
 date: "4th of October 2021"
-output: html_document
+output:
+  pdf_document: default
+  html_document: default
+  word_document: default
 ---
 
 ```{r setup, include=FALSE}
@@ -84,7 +87,7 @@ lau$target.contrast <- as.numeric(lau$target.contrast)
 
 ```
 
-  iii. for the staircasing part __only__, create a plot for each subject where you plot the estimated function (on the _target.contrast_ range from 0-1) based on the fitted values of a model (use `glm`) that models _correct_ as dependent on _target.contrast_. These plots will be our _complete*-pooling_ model. Comment on the fits - do we have enough data to plot the logistic functions?  
+  iii. for the staircasing part __only__, create a plot for each subject where you plot the estimated function (on the _target.contrast_ range from 0-1) based on the fitted values of a model (use `glm`) that models _correct_ as dependent on _target.contrast_. These plots will be our _no-pooling_ model. Comment on the fits - do we have enough data to plot the logistic functions?  
 ```{r}
 staircase <- lau %>% 
   filter(lau$trial.type == 'staircase')
@@ -164,7 +167,7 @@ do.call(grid.arrange,  plots)
 ```
 
   v. in your own words, describe how the partial pooling model allows for a better fit for each subject  
-Partial pooling allows for a generalization of the subjects within the data set, since it by doing a random intercept and slope takes individuality into account, but it doesn't over fit the model to each subject like a  no-pooling model would do. A complete pooling model on the other hand wouldn't take individuality into account and thereby over fit a model to each subject. By that one would in theory only be able to tell something about that specific subjcet and no generalization is then possible. 
+Partial pooling allows for a generalization of the subjects within the data set, since by doing a random intercept and slope takes individuality into account, but it doesn't over fit the model to each subject like a  no-pooling model would do. A complete pooling model on the other hand wouldn't take individuality into account and thereby over fit a model to each subject. By that one would in theory only be able to tell something about that specific subjcet and no generalization is then possible. 
 
 ...For some reason my R doesn't want to draw lines in this plot... 
 
@@ -394,4 +397,9 @@ accuracyfun(last_one2, lau_exp)
 accuracyfun(last_one3, lau_exp)
 accuracyfun(last_one4, lau_exp)
 ```
+Each model predict correct on 74% of the data, but it has also only been tested on already seen data sooo. Here we only see performance and no explaining of variance...
 
+start med intercept (correct~1) model og tag mere of mere på. så kan man se hvor bedre de bliver. og hvor meget variance, der bliver explained med flere og flere variabler. 
+kig f.eks. på AIC
+
+hvilke variabler er de vigtgie? hvad er med til at forklare accuracy

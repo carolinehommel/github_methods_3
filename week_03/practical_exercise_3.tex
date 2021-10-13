@@ -1,0 +1,1353 @@
+% Options for packages loaded elsewhere
+\PassOptionsToPackage{unicode}{hyperref}
+\PassOptionsToPackage{hyphens}{url}
+%
+\documentclass[
+]{article}
+\title{practical\_exercise\_3, Methods 3, 2021, autumn semester}
+\author{Caroline Hommel}
+\date{4th of October 2021}
+
+\usepackage{amsmath,amssymb}
+\usepackage{lmodern}
+\usepackage{iftex}
+\ifPDFTeX
+  \usepackage[T1]{fontenc}
+  \usepackage[utf8]{inputenc}
+  \usepackage{textcomp} % provide euro and other symbols
+\else % if luatex or xetex
+  \usepackage{unicode-math}
+  \defaultfontfeatures{Scale=MatchLowercase}
+  \defaultfontfeatures[\rmfamily]{Ligatures=TeX,Scale=1}
+\fi
+% Use upquote if available, for straight quotes in verbatim environments
+\IfFileExists{upquote.sty}{\usepackage{upquote}}{}
+\IfFileExists{microtype.sty}{% use microtype if available
+  \usepackage[]{microtype}
+  \UseMicrotypeSet[protrusion]{basicmath} % disable protrusion for tt fonts
+}{}
+\makeatletter
+\@ifundefined{KOMAClassName}{% if non-KOMA class
+  \IfFileExists{parskip.sty}{%
+    \usepackage{parskip}
+  }{% else
+    \setlength{\parindent}{0pt}
+    \setlength{\parskip}{6pt plus 2pt minus 1pt}}
+}{% if KOMA class
+  \KOMAoptions{parskip=half}}
+\makeatother
+\usepackage{xcolor}
+\IfFileExists{xurl.sty}{\usepackage{xurl}}{} % add URL line breaks if available
+\IfFileExists{bookmark.sty}{\usepackage{bookmark}}{\usepackage{hyperref}}
+\hypersetup{
+  pdftitle={practical\_exercise\_3, Methods 3, 2021, autumn semester},
+  pdfauthor={Caroline Hommel},
+  hidelinks,
+  pdfcreator={LaTeX via pandoc}}
+\urlstyle{same} % disable monospaced font for URLs
+\usepackage[margin=1in]{geometry}
+\usepackage{color}
+\usepackage{fancyvrb}
+\newcommand{\VerbBar}{|}
+\newcommand{\VERB}{\Verb[commandchars=\\\{\}]}
+\DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+% Add ',fontsize=\small' for more characters per line
+\usepackage{framed}
+\definecolor{shadecolor}{RGB}{248,248,248}
+\newenvironment{Shaded}{\begin{snugshade}}{\end{snugshade}}
+\newcommand{\AlertTok}[1]{\textcolor[rgb]{0.94,0.16,0.16}{#1}}
+\newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.77,0.63,0.00}{#1}}
+\newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\BuiltInTok}[1]{#1}
+\newcommand{\CharTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\CommentTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textit{#1}}}
+\newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{\textbf{#1}}}
+\newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{#1}}
+\newcommand{\DecValTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\ErrorTok}[1]{\textcolor[rgb]{0.64,0.00,0.00}{\textbf{#1}}}
+\newcommand{\ExtensionTok}[1]{#1}
+\newcommand{\FloatTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\ImportTok}[1]{#1}
+\newcommand{\InformationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{\textbf{#1}}}
+\newcommand{\NormalTok}[1]{#1}
+\newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.81,0.36,0.00}{\textbf{#1}}}
+\newcommand{\OtherTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{#1}}
+\newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textit{#1}}}
+\newcommand{\RegionMarkerTok}[1]{#1}
+\newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\StringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\VariableTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\WarningTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\usepackage{graphicx}
+\makeatletter
+\def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth\else\Gin@nat@width\fi}
+\def\maxheight{\ifdim\Gin@nat@height>\textheight\textheight\else\Gin@nat@height\fi}
+\makeatother
+% Scale images if necessary, so that they will not overflow the page
+% margins by default, and it is still possible to overwrite the defaults
+% using explicit options in \includegraphics[width, height, ...]{}
+\setkeys{Gin}{width=\maxwidth,height=\maxheight,keepaspectratio}
+% Set default figure placement to htbp
+\makeatletter
+\def\fps@figure{htbp}
+\makeatother
+\setlength{\emergencystretch}{3em} % prevent overfull lines
+\providecommand{\tightlist}{%
+  \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+\setcounter{secnumdepth}{-\maxdimen} % remove section numbering
+\ifLuaTeX
+  \usepackage{selnolig}  % disable illegal ligatures
+\fi
+
+\begin{document}
+\maketitle
+
+\hypertarget{exercises-and-objectives}{%
+\section{Exercises and objectives}\label{exercises-and-objectives}}
+
+The objectives of the exercises of this assignment are:\\
+1) Download and organised the data and model and plot staircase
+responses based on fits of logistic functions\\
+2) Fit multilevel models for response times\\
+3) Fit multilevel models for count data
+
+\hypertarget{exercise-1}{%
+\subsection{Exercise 1}\label{exercise-1}}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi})}
+\tightlist
+\item
+  Put the data from all subjects into a single data frame
+\end{enumerate}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# Making a data frame with the data from experiment 2}
+\NormalTok{lau\_files }\OtherTok{\textless{}{-}} \FunctionTok{list.files}\NormalTok{(}\AttributeTok{path =} \StringTok{"experiment\_2"}\NormalTok{,}
+                    \AttributeTok{pattern =} \StringTok{".csv"}\NormalTok{,}
+                    \AttributeTok{full.names =}\NormalTok{ T)}
+
+\NormalTok{lau }\OtherTok{\textless{}{-}} \FunctionTok{data.frame}\NormalTok{() }\CommentTok{\# Creating empty data frame}
+
+\ControlFlowTok{for}\NormalTok{ (i }\ControlFlowTok{in} \DecValTok{1}\SpecialCharTok{:}\FunctionTok{length}\NormalTok{(lau\_files))\{}
+\NormalTok{  new\_dat }\OtherTok{\textless{}{-}} \FunctionTok{read.table}\NormalTok{(lau\_files[i], }\AttributeTok{sep =} \StringTok{","}\NormalTok{, }\AttributeTok{header =} \ConstantTok{TRUE}\NormalTok{, }\AttributeTok{dec =} \StringTok{\textquotesingle{},\textquotesingle{}}\NormalTok{ )}
+\NormalTok{  lau }\OtherTok{\textless{}{-}} \FunctionTok{rbind}\NormalTok{(new\_dat, lau)}
+\NormalTok{\} }\CommentTok{\# Going through each of the files on the list, reading them and them adding them to the data frame}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi})}
+\setcounter{enumi}{1}
+\tightlist
+\item
+  Describe the data and construct extra variables from the existing
+  variables
+
+  \begin{enumerate}
+  \def\labelenumii{\roman{enumii}.}
+  \tightlist
+  \item
+    add a variable to the data frame and call it \emph{correct} (have it
+    be a \emph{logical} variable). Assign a 1 to each row where the
+    subject indicated the correct answer and a 0 to each row where the
+    subject indicated the incorrect answer (\textbf{Hint:} the variable
+    \emph{obj.resp} indicates whether the subject answered ``even'',
+    \emph{e} or ``odd'', \emph{o}, and the variable \emph{target\_type}
+    indicates what was actually presented.
+  \end{enumerate}
+\end{enumerate}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\#Changing even and odd to e\textquotesingle{}s and o\textquotesingle{}s}
+\NormalTok{lau}\SpecialCharTok{$}\NormalTok{target.type }\OtherTok{\textless{}{-}} \FunctionTok{replace}\NormalTok{(lau}\SpecialCharTok{$}\NormalTok{target.type, lau}\SpecialCharTok{$}\NormalTok{target.type }\SpecialCharTok{==} \StringTok{"even"}\NormalTok{, }\StringTok{"e"}\NormalTok{)}
+\NormalTok{lau}\SpecialCharTok{$}\NormalTok{target.type }\OtherTok{\textless{}{-}} \FunctionTok{replace}\NormalTok{(lau}\SpecialCharTok{$}\NormalTok{target.type, lau}\SpecialCharTok{$}\NormalTok{target.type }\SpecialCharTok{==} \StringTok{"odd"}\NormalTok{, }\StringTok{"o"}\NormalTok{)}
+
+\CommentTok{\#Creating a new column called \textquotesingle{}correct\textquotesingle{} and telling it to write 1 if the same letter is present in target.type and obj.resp and 0 if it is not correct }
+
+\NormalTok{lau}\SpecialCharTok{$}\NormalTok{correct }\OtherTok{\textless{}{-}} \FunctionTok{ifelse}\NormalTok{((lau}\SpecialCharTok{$}\NormalTok{target.type }\SpecialCharTok{==}\NormalTok{ lau}\SpecialCharTok{$}\NormalTok{obj.resp), }\DecValTok{1}\NormalTok{, }\DecValTok{0}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{enumerate}
+\def\labelenumi{\roman{enumi}.}
+\setcounter{enumi}{1}
+\tightlist
+\item
+  describe what the following variables in the data frame contain,
+  \emph{trial.type}, \emph{pas}, \emph{trial}, \emph{target.contrast},
+  \emph{cue}, \emph{task}, \emph{target\_type}, \emph{rt.subj},
+  \emph{rt.obj}, \emph{obj.resp}, \emph{subject} and \emph{correct}.
+  (That means you can ignore the rest of the variables in your
+  description). For each of them, indicate and argue for what
+  \texttt{class} they should be classified into, e.g.~\emph{factor},
+  \emph{numeric} etc.
+\end{enumerate}
+
+\emph{trial.type} : describing whether or not the observation comes from
+the introductory trials or the actual experiment. Factor.
+
+\emph{pas} : subjective rating on how certain the participant was in
+there answer on a scale from 1-4. Integer because it is ordered.
+
+\emph{trial} : The number of trials the participant has done. Integer.
+
+\emph{target.contrast} : contrast of the target stimuli relative to the
+background. Numeric.
+
+\emph{cue} : Which cue the participant gets at first. There are 35
+different cues. Factor.
+
+\emph{task} : how many numbers the participant is seeing single = two
+numbers, pairs = four numbers, quadruplets = eight numbers. Factor.
+
+\emph{target\_type} : Whether the participant was presented with a even
+or an odd number. Factor.
+
+\emph{rt.subj} : How fast they are to rate the \emph{pas}. Numeric.
+
+\emph{rt.obj} : how fast they responded to the objective question
+whether the number they were presented with was odd or even. Numeric.
+
+\emph{obj.resp} : what the participant answered to whether the number
+was odd or even. Factor.
+
+\emph{subject} : participant number. Factor.
+
+\emph{correct} : 1 if they answered correct, 0 if they answered the
+question wrong. Factor.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\#changing all variables to the desired  }
+\NormalTok{lau}\SpecialCharTok{$}\NormalTok{rt.subj }\OtherTok{\textless{}{-}} \FunctionTok{as.numeric}\NormalTok{(lau}\SpecialCharTok{$}\NormalTok{rt.subj)}
+\NormalTok{lau}\SpecialCharTok{$}\NormalTok{rt.obj }\OtherTok{\textless{}{-}} \FunctionTok{as.numeric}\NormalTok{(lau}\SpecialCharTok{$}\NormalTok{rt.obj)}
+\NormalTok{lau[}\FunctionTok{sapply}\NormalTok{(lau, is.character)] }\OtherTok{\textless{}{-}} \FunctionTok{lapply}\NormalTok{(lau[}\FunctionTok{sapply}\NormalTok{(lau, is.character)], as.factor)}
+\NormalTok{lau}\SpecialCharTok{$}\NormalTok{cue }\OtherTok{\textless{}{-}} \FunctionTok{as.factor}\NormalTok{(lau}\SpecialCharTok{$}\NormalTok{cue)}
+\NormalTok{lau}\SpecialCharTok{$}\NormalTok{subject }\OtherTok{\textless{}{-}} \FunctionTok{as.factor}\NormalTok{(lau}\SpecialCharTok{$}\NormalTok{subject)}
+\NormalTok{lau}\SpecialCharTok{$}\NormalTok{correct }\OtherTok{\textless{}{-}} \FunctionTok{as.factor}\NormalTok{(lau}\SpecialCharTok{$}\NormalTok{correct)}
+\NormalTok{lau}\SpecialCharTok{$}\NormalTok{target.contrast }\OtherTok{\textless{}{-}} \FunctionTok{as.numeric}\NormalTok{(lau}\SpecialCharTok{$}\NormalTok{target.contrast)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{enumerate}
+\def\labelenumi{\roman{enumi}.}
+\setcounter{enumi}{2}
+\tightlist
+\item
+  for the staircasing part \textbf{only}, create a plot for each subject
+  where you plot the estimated function (on the \emph{target.contrast}
+  range from 0-1) based on the fitted values of a model (use
+  \texttt{glm}) that models \emph{correct} as dependent on
+  \emph{target.contrast}. These plots will be our \_complete*-pooling\_
+  model. Comment on the fits - do we have enough data to plot the
+  logistic functions?
+\end{enumerate}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{staircase }\OtherTok{\textless{}{-}}\NormalTok{ lau }\SpecialCharTok{\%\textgreater{}\%} 
+  \FunctionTok{filter}\NormalTok{(lau}\SpecialCharTok{$}\NormalTok{trial.type }\SpecialCharTok{==} \StringTok{\textquotesingle{}staircase\textquotesingle{}}\NormalTok{)}
+
+\CommentTok{\# Making a function to run a model for each participant}
+\NormalTok{nopoolfun }\OtherTok{\textless{}{-}} \ControlFlowTok{function}\NormalTok{(i)\{}
+\NormalTok{  dat }\OtherTok{\textless{}{-}}\NormalTok{ staircase[}\FunctionTok{which}\NormalTok{(staircase}\SpecialCharTok{$}\NormalTok{subject }\SpecialCharTok{==}\NormalTok{ i),] }\CommentTok{\# subsetting the data so it only includes one participant}
+\NormalTok{  model }\OtherTok{\textless{}{-}} \FunctionTok{glm}\NormalTok{(correct }\SpecialCharTok{\textasciitilde{}}\NormalTok{ target.contrast, }\AttributeTok{family =} \StringTok{\textquotesingle{}binomial\textquotesingle{}}\NormalTok{, }\AttributeTok{data =}\NormalTok{ dat) }\CommentTok{\# running a model on the data from one participant}
+\NormalTok{  fitted }\OtherTok{\textless{}{-}}\NormalTok{ model}\SpecialCharTok{$}\NormalTok{fitted.values }\CommentTok{\# extracting the fitted values}
+\NormalTok{  plot\_dat }\OtherTok{\textless{}{-}} \FunctionTok{data.frame}\NormalTok{(}\FunctionTok{cbind}\NormalTok{(fitted, }\StringTok{\textquotesingle{}target.contrast\textquotesingle{}} \OtherTok{=}\NormalTok{ dat}\SpecialCharTok{$}\NormalTok{target.contrast)) }\CommentTok{\# creating a data frame with the variables needed in the plot}
+  
+\NormalTok{  plot }\OtherTok{\textless{}{-}} \FunctionTok{ggplot}\NormalTok{(plot\_dat, }\FunctionTok{aes}\NormalTok{(}\AttributeTok{x =}\NormalTok{ target.contrast, }\AttributeTok{y =}\NormalTok{ fitted))}\SpecialCharTok{+} \CommentTok{\# plotting}
+    \FunctionTok{geom\_point}\NormalTok{(}\AttributeTok{color =} \StringTok{\textquotesingle{}steelblue\textquotesingle{}}\NormalTok{) }\SpecialCharTok{+} 
+    \FunctionTok{xlab}\NormalTok{(}\StringTok{\textquotesingle{}Target Contrast\textquotesingle{}}\NormalTok{) }\SpecialCharTok{+}
+    \FunctionTok{ylab}\NormalTok{(}\StringTok{\textquotesingle{}Predicted\textquotesingle{}}\NormalTok{) }\SpecialCharTok{+}
+    \FunctionTok{ylim}\NormalTok{(}\FunctionTok{c}\NormalTok{(}\DecValTok{0}\NormalTok{,}\DecValTok{1}\NormalTok{))}\SpecialCharTok{+}
+    \FunctionTok{ggtitle}\NormalTok{(}\FunctionTok{paste0}\NormalTok{(}\StringTok{\textquotesingle{}Paticipant \textquotesingle{}}\NormalTok{, }\FunctionTok{as.character}\NormalTok{(i))) }\SpecialCharTok{+}
+    \FunctionTok{theme\_minimal}\NormalTok{() }\SpecialCharTok{+}
+    \FunctionTok{theme}\NormalTok{(}\AttributeTok{plot.title =} \FunctionTok{element\_text}\NormalTok{(}\AttributeTok{size =} \DecValTok{10}\NormalTok{), }\AttributeTok{axis.title=}\FunctionTok{element\_text}\NormalTok{(}\AttributeTok{size =} \DecValTok{8}\NormalTok{), }\AttributeTok{axis.text=}\FunctionTok{element\_text}\NormalTok{(}\AttributeTok{size=}\DecValTok{6}\NormalTok{))}
+  
+  \FunctionTok{return}\NormalTok{(plot)}
+\NormalTok{\}}
+
+\CommentTok{\# Running the function for every participant (doing it twice so the plots are nicer to look at)}
+\NormalTok{subjects }\OtherTok{\textless{}{-}} \FunctionTok{c}\NormalTok{(}\DecValTok{1}\SpecialCharTok{:}\DecValTok{16}\NormalTok{)}
+\NormalTok{plots }\OtherTok{\textless{}{-}} \FunctionTok{lapply}\NormalTok{(subjects, }\AttributeTok{FUN=}\NormalTok{nopoolfun)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Warning: glm.fit: fitted probabilities numerically 0 or 1 occurred
+
+## Warning: glm.fit: fitted probabilities numerically 0 or 1 occurred
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{do.call}\NormalTok{(grid.arrange,  plots)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{practical_exercise_3_files/figure-latex/unnamed-chunk-4-1.pdf}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{subjects }\OtherTok{\textless{}{-}} \FunctionTok{c}\NormalTok{(}\DecValTok{17}\SpecialCharTok{:}\DecValTok{29}\NormalTok{)}
+\NormalTok{plots }\OtherTok{\textless{}{-}} \FunctionTok{lapply}\NormalTok{(subjects, }\AttributeTok{FUN=}\NormalTok{nopoolfun)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Warning: glm.fit: fitted probabilities numerically 0 or 1 occurred
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{do.call}\NormalTok{(grid.arrange,  plots)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{practical_exercise_3_files/figure-latex/unnamed-chunk-4-2.pdf}
+
+\begin{enumerate}
+\def\labelenumi{\roman{enumi}.}
+\setcounter{enumi}{3}
+\tightlist
+\item
+  on top of those plots, add the estimated functions (on the
+  \emph{target.contrast} range from 0-1) for each subject based on
+  partial pooling model (use \texttt{glmer} from the package
+  \texttt{lme4}) where unique intercepts and slopes for
+  \emph{target.contrast} are modeled for each \emph{subject}
+\end{enumerate}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# running a partial pooling model on the data}
+\NormalTok{model }\OtherTok{\textless{}{-}} \FunctionTok{glmer}\NormalTok{(correct }\SpecialCharTok{\textasciitilde{}}\NormalTok{ target.contrast }\SpecialCharTok{+}\NormalTok{ (}\DecValTok{1} \SpecialCharTok{+}\NormalTok{ target.contrast }\SpecialCharTok{|}\NormalTok{ subject), }\AttributeTok{family =} \StringTok{\textquotesingle{}binomial\textquotesingle{}}\NormalTok{, }\AttributeTok{data =}\NormalTok{ staircase)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Warning: Some predictor variables are on very different scales: consider
+## rescaling
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in checkConv(attr(opt, "derivs"), opt$par, ctrl = control$checkConv, :
+## unable to evaluate scaled gradient
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in checkConv(attr(opt, "derivs"), opt$par, ctrl = control$checkConv, :
+## Model failed to converge: degenerate Hessian with 1 negative eigenvalues
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{partialpoolfun }\OtherTok{\textless{}{-}} \ControlFlowTok{function}\NormalTok{(i)\{}
+  \CommentTok{\# this first section is identical to the nopoolfun function, since we still want to include these data points in the plot}
+\NormalTok{  dat }\OtherTok{\textless{}{-}}\NormalTok{ staircase[}\FunctionTok{which}\NormalTok{(staircase}\SpecialCharTok{$}\NormalTok{subject }\SpecialCharTok{==}\NormalTok{ i),] }
+  \CommentTok{\# model for each participant}
+\NormalTok{  model1 }\OtherTok{\textless{}{-}} \FunctionTok{glm}\NormalTok{(correct }\SpecialCharTok{\textasciitilde{}}\NormalTok{ target.contrast, }\AttributeTok{family =} \StringTok{\textquotesingle{}binomial\textquotesingle{}}\NormalTok{, }\AttributeTok{data =}\NormalTok{ dat)}
+\NormalTok{  fitted }\OtherTok{\textless{}{-}}\NormalTok{ model1}\SpecialCharTok{$}\NormalTok{fitted.values}
+\NormalTok{  plot\_dat }\OtherTok{\textless{}{-}} \FunctionTok{data.frame}\NormalTok{(}\FunctionTok{cbind}\NormalTok{(fitted, }\StringTok{\textquotesingle{}target.contrast\textquotesingle{}} \OtherTok{=}\NormalTok{ dat}\SpecialCharTok{$}\NormalTok{target.contrast))}
+  
+   \CommentTok{\# here a data frame is created with hypothetical target.contrast values as well as a column with the subject number}
+\NormalTok{  newdf}\OtherTok{\textless{}{-}} \FunctionTok{data.frame}\NormalTok{(}\FunctionTok{cbind}\NormalTok{(}\FunctionTok{seq}\NormalTok{(}\DecValTok{0}\NormalTok{, }\DecValTok{1}\NormalTok{, }\AttributeTok{by =} \FloatTok{0.01}\NormalTok{),}\FunctionTok{rep}\NormalTok{(i)))}
+  \FunctionTok{colnames}\NormalTok{(newdf) }\OtherTok{\textless{}{-}} \FunctionTok{c}\NormalTok{(}\StringTok{\textquotesingle{}target.contrast\textquotesingle{}}\NormalTok{, }\StringTok{\textquotesingle{}subject\textquotesingle{}}\NormalTok{) }\CommentTok{\#renaming the columns so it matches the variable names in the model}
+  
+  \CommentTok{\# predicting using the model and the data frame just created}
+\NormalTok{  newdf}\SpecialCharTok{$}\NormalTok{predictmod }\OtherTok{\textless{}{-}} \FunctionTok{predict}\NormalTok{(model, }\AttributeTok{type =} \StringTok{\textquotesingle{}response\textquotesingle{}}\NormalTok{, }\AttributeTok{newdata =}\NormalTok{ newdf) }
+  
+\NormalTok{  plot }\OtherTok{\textless{}{-}} \FunctionTok{ggplot}\NormalTok{(plot\_dat, }\FunctionTok{aes}\NormalTok{(}\AttributeTok{x =}\NormalTok{ target.contrast, }\AttributeTok{y =}\NormalTok{ fitted)) }\SpecialCharTok{+} \CommentTok{\#plotting}
+    \FunctionTok{geom\_point}\NormalTok{(}\AttributeTok{color =} \StringTok{\textquotesingle{}steelblue\textquotesingle{}}\NormalTok{) }\SpecialCharTok{+} 
+    \FunctionTok{geom\_line}\NormalTok{(}\AttributeTok{data =}\NormalTok{ newdf, }\FunctionTok{aes}\NormalTok{(}\AttributeTok{x =}\NormalTok{ target.contrast, }\AttributeTok{y =}\NormalTok{ predictmod)) }\SpecialCharTok{+} 
+    \FunctionTok{xlab}\NormalTok{(}\StringTok{\textquotesingle{}Target Contrast\textquotesingle{}}\NormalTok{) }\SpecialCharTok{+}
+    \FunctionTok{ylab}\NormalTok{(}\StringTok{\textquotesingle{}Predicted\textquotesingle{}}\NormalTok{) }\SpecialCharTok{+}
+    \FunctionTok{ylim}\NormalTok{(}\FunctionTok{c}\NormalTok{(}\DecValTok{0}\NormalTok{,}\DecValTok{1}\NormalTok{))}\SpecialCharTok{+}
+    \FunctionTok{ggtitle}\NormalTok{(}\FunctionTok{paste0}\NormalTok{(}\StringTok{\textquotesingle{}Participant \textquotesingle{}}\NormalTok{, }\FunctionTok{as.character}\NormalTok{(i))) }\SpecialCharTok{+}
+    \FunctionTok{theme\_minimal}\NormalTok{() }\SpecialCharTok{+}
+    \FunctionTok{theme}\NormalTok{(}\AttributeTok{plot.title =} \FunctionTok{element\_text}\NormalTok{(}\AttributeTok{size =} \DecValTok{10}\NormalTok{), }\AttributeTok{axis.title=}\FunctionTok{element\_text}\NormalTok{(}\AttributeTok{size =} \DecValTok{8}\NormalTok{), }\AttributeTok{axis.text=}\FunctionTok{element\_text}\NormalTok{(}\AttributeTok{size=}\DecValTok{6}\NormalTok{))}
+  
+  \FunctionTok{return}\NormalTok{(plot)}
+\NormalTok{\}}
+
+\NormalTok{subjects }\OtherTok{\textless{}{-}} \FunctionTok{c}\NormalTok{(}\DecValTok{1}\SpecialCharTok{:}\DecValTok{16}\NormalTok{)}
+\NormalTok{plots }\OtherTok{\textless{}{-}} \FunctionTok{lapply}\NormalTok{(subjects, }\AttributeTok{FUN=}\NormalTok{partialpoolfun)}
+\FunctionTok{do.call}\NormalTok{(grid.arrange,  plots)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{practical_exercise_3_files/figure-latex/unnamed-chunk-6-1.pdf}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{subjects }\OtherTok{\textless{}{-}} \FunctionTok{c}\NormalTok{(}\DecValTok{17}\SpecialCharTok{:}\DecValTok{29}\NormalTok{)}
+\NormalTok{plots }\OtherTok{\textless{}{-}} \FunctionTok{lapply}\NormalTok{(subjects, }\AttributeTok{FUN=}\NormalTok{partialpoolfun)}
+\FunctionTok{do.call}\NormalTok{(grid.arrange,  plots)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{practical_exercise_3_files/figure-latex/unnamed-chunk-6-2.pdf}
+
+\begin{enumerate}
+\def\labelenumi{\alph{enumi}.}
+\setcounter{enumi}{21}
+\tightlist
+\item
+  in your own words, describe how the partial pooling model allows for a
+  better fit for each subject\\
+  Partial pooling allows for a generalization of the subjects within the
+  data set, since it by doing a random intercept and slope takes
+  individuality into account, but it doesn't over fit the model to each
+  subject like a no-pooling model would do. A complete pooling model on
+  the other hand wouldn't take individuality into account and thereby
+  over fit a model to each subject. By that one would in theory only be
+  able to tell something about that specific subjcet and no
+  generalization is then possible.
+\end{enumerate}
+
+\ldots For some reason my R doesn't want to draw lines in this
+plot\ldots{}
+
+\hypertarget{exercise-2}{%
+\subsection{Exercise 2}\label{exercise-2}}
+
+Now we \textbf{only} look at the \emph{experiment} trials
+(\emph{trial.type})
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi})}
+\tightlist
+\item
+  Pick four subjects and plot their Quantile-Quantile (Q-Q) plots for
+  the residuals of their objective response times (\emph{rt.obj}) based
+  on a model where only intercept is modeled
+\end{enumerate}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\#filtering to only get the experiment trials}
+\NormalTok{lau\_exp }\OtherTok{\textless{}{-}}\NormalTok{ lau }\SpecialCharTok{\%\textgreater{}\%} 
+  \FunctionTok{filter}\NormalTok{( trial.type }\SpecialCharTok{==} \StringTok{"experiment"}\NormalTok{)}
+
+\CommentTok{\#creating a new data frame with four participants in it}
+\NormalTok{df4 }\OtherTok{\textless{}{-}}\NormalTok{  lau\_exp}\SpecialCharTok{\%\textgreater{}\%} 
+  \FunctionTok{filter}\NormalTok{(subject }\SpecialCharTok{==} \StringTok{\textquotesingle{}3\textquotesingle{}} \SpecialCharTok{|}\NormalTok{ subject }\SpecialCharTok{==} \StringTok{\textquotesingle{}7\textquotesingle{}} \SpecialCharTok{|}\NormalTok{ subject }\SpecialCharTok{==} \StringTok{\textquotesingle{}17\textquotesingle{}} \SpecialCharTok{|}\NormalTok{ subject }\SpecialCharTok{==} \StringTok{\textquotesingle{}28\textquotesingle{}}\NormalTok{)}
+
+
+\NormalTok{qqfun }\OtherTok{\textless{}{-}} \ControlFlowTok{function}\NormalTok{(i)\{}
+\NormalTok{  interceptmodel }\OtherTok{\textless{}{-}} \FunctionTok{lm}\NormalTok{(rt.obj }\SpecialCharTok{\textasciitilde{}} \DecValTok{1}\NormalTok{, }\AttributeTok{data =}\NormalTok{ df4, }\AttributeTok{subset =}\NormalTok{ subject }\SpecialCharTok{==}\NormalTok{ i)}
+  \FunctionTok{qqnorm}\NormalTok{(}\FunctionTok{resid}\NormalTok{(interceptmodel), }\AttributeTok{pch =} \DecValTok{1}\NormalTok{, }\AttributeTok{frame =} \ConstantTok{FALSE}\NormalTok{)}
+  \FunctionTok{qqline}\NormalTok{(}\FunctionTok{resid}\NormalTok{(interceptmodel), }\AttributeTok{col =} \StringTok{"steelblue"}\NormalTok{, }\AttributeTok{lwd =} \DecValTok{2}\NormalTok{)}
+\NormalTok{\}}
+
+
+\FunctionTok{qqfun}\NormalTok{(}\DecValTok{3}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{practical_exercise_3_files/figure-latex/unnamed-chunk-7-1.pdf}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{qqfun}\NormalTok{(}\DecValTok{7}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{practical_exercise_3_files/figure-latex/unnamed-chunk-7-2.pdf}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{qqfun}\NormalTok{(}\DecValTok{17}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{practical_exercise_3_files/figure-latex/unnamed-chunk-7-3.pdf}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{qqfun}\NormalTok{(}\DecValTok{28}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{practical_exercise_3_files/figure-latex/unnamed-chunk-7-4.pdf}
+i. comment on these\\
+They don't look normally distributed. They all look right skewed, some
+more than others especially the last two plots.
+
+\begin{enumerate}
+\def\labelenumi{\roman{enumi}.}
+\setcounter{enumi}{1}
+\tightlist
+\item
+  does a log-transformation of the response time data improve the
+  Q-Q-plots?
+\end{enumerate}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\#Log{-}transforming the data }
+\NormalTok{qqfun }\OtherTok{\textless{}{-}} \ControlFlowTok{function}\NormalTok{(i)\{}
+\NormalTok{  interceptmodel }\OtherTok{\textless{}{-}} \FunctionTok{lm}\NormalTok{(}\FunctionTok{log}\NormalTok{(rt.obj) }\SpecialCharTok{\textasciitilde{}} \DecValTok{1}\NormalTok{, }\AttributeTok{data =}\NormalTok{ df4, }\AttributeTok{subset =}\NormalTok{ subject }\SpecialCharTok{==}\NormalTok{ i)}
+  \FunctionTok{qqnorm}\NormalTok{(}\FunctionTok{resid}\NormalTok{(interceptmodel), }\AttributeTok{pch =} \DecValTok{1}\NormalTok{, }\AttributeTok{frame =} \ConstantTok{FALSE}\NormalTok{)}
+  \FunctionTok{qqline}\NormalTok{(}\FunctionTok{resid}\NormalTok{(interceptmodel), }\AttributeTok{col =} \StringTok{"steelblue"}\NormalTok{, }\AttributeTok{lwd =} \DecValTok{2}\NormalTok{)}
+\NormalTok{\}}
+
+
+\FunctionTok{qqfun}\NormalTok{(}\DecValTok{3}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{practical_exercise_3_files/figure-latex/unnamed-chunk-8-1.pdf}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{qqfun}\NormalTok{(}\DecValTok{7}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{practical_exercise_3_files/figure-latex/unnamed-chunk-8-2.pdf}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{qqfun}\NormalTok{(}\DecValTok{17}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{practical_exercise_3_files/figure-latex/unnamed-chunk-8-3.pdf}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{qqfun}\NormalTok{(}\DecValTok{28}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{practical_exercise_3_files/figure-latex/unnamed-chunk-8-4.pdf}
+Log-transforming the data made it much more normally distributed
+residuals so the model fits better since normally distributed residuals
+is one of the assumptions for a glm model.
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi})}
+\setcounter{enumi}{1}
+\tightlist
+\item
+  Now do a partial pooling model modelling objective response times as
+  dependent on \emph{task}? (set \texttt{REML=FALSE} in your
+  \texttt{lmer}-specification)\\
+\end{enumerate}
+
+\begin{enumerate}
+\def\labelenumi{\roman{enumi}.}
+\tightlist
+\item
+  which would you include among your random effects and why? (support
+  your choices with relevant measures, taking into account variance
+  explained and number of parameters going into the modelling)
+\end{enumerate}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{partial1 }\OtherTok{\textless{}{-}} \FunctionTok{lmer}\NormalTok{(}\FunctionTok{log}\NormalTok{(rt.obj) }\SpecialCharTok{\textasciitilde{}}\NormalTok{ task }\SpecialCharTok{+}\NormalTok{ (}\DecValTok{1}\SpecialCharTok{|}\NormalTok{subject), }\AttributeTok{data =}\NormalTok{ lau\_exp, }\AttributeTok{REML =} \ConstantTok{FALSE}\NormalTok{)}
+\NormalTok{partial2 }\OtherTok{\textless{}{-}} \FunctionTok{lmer}\NormalTok{(}\FunctionTok{log}\NormalTok{(rt.obj) }\SpecialCharTok{\textasciitilde{}}\NormalTok{ task }\SpecialCharTok{+}\NormalTok{ (}\DecValTok{1}\SpecialCharTok{|}\NormalTok{trial), }\AttributeTok{data =}\NormalTok{ lau\_exp, }\AttributeTok{REML =} \ConstantTok{FALSE}\NormalTok{)}
+\NormalTok{partial3 }\OtherTok{\textless{}{-}} \FunctionTok{lmer}\NormalTok{(}\FunctionTok{log}\NormalTok{(rt.obj) }\SpecialCharTok{\textasciitilde{}}\NormalTok{ task }\SpecialCharTok{+}\NormalTok{ (}\DecValTok{1}\SpecialCharTok{|}\NormalTok{subject) }\SpecialCharTok{+}\NormalTok{ (}\DecValTok{1}\SpecialCharTok{|}\NormalTok{trial), }\AttributeTok{data =}\NormalTok{ lau\_exp, }\AttributeTok{REML =} \ConstantTok{FALSE}\NormalTok{)}
+\NormalTok{partial4 }\OtherTok{\textless{}{-}} \FunctionTok{lmer}\NormalTok{(}\FunctionTok{log}\NormalTok{(rt.obj) }\SpecialCharTok{\textasciitilde{}}\NormalTok{ task }\SpecialCharTok{+}\NormalTok{ (}\DecValTok{1}\SpecialCharTok{+}\NormalTok{task}\SpecialCharTok{|}\NormalTok{subject) , }\AttributeTok{data =}\NormalTok{ lau\_exp, }\AttributeTok{REML =} \ConstantTok{FALSE}\NormalTok{)}
+\NormalTok{partial5 }\OtherTok{\textless{}{-}} \FunctionTok{lmer}\NormalTok{(}\FunctionTok{log}\NormalTok{(rt.obj) }\SpecialCharTok{\textasciitilde{}}\NormalTok{ task }\SpecialCharTok{+}\NormalTok{ (}\DecValTok{1}\SpecialCharTok{+}\NormalTok{task}\SpecialCharTok{|}\NormalTok{subject) }\SpecialCharTok{+}\NormalTok{ (}\DecValTok{1}\SpecialCharTok{|}\NormalTok{trial), lau\_exp, }\AttributeTok{REML =}\NormalTok{ F)}
+
+\FunctionTok{summary}\NormalTok{(partial1)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Linear mixed model fit by maximum likelihood  ['lmerMod']
+## Formula: log(rt.obj) ~ task + (1 | subject)
+##    Data: lau_exp
+## 
+##      AIC      BIC   logLik deviance df.resid 
+##  29685.3  29722.5 -14837.7  29675.3    12523 
+## 
+## Scaled residuals: 
+##      Min       1Q   Median       3Q      Max 
+## -10.8424  -0.4890  -0.0194   0.5230   7.8176 
+## 
+## Random effects:
+##  Groups   Name        Variance Std.Dev.
+##  subject  (Intercept) 0.1747   0.4180  
+##  Residual             0.6186   0.7865  
+## Number of obs: 12528, groups:  subject, 29
+## 
+## Fixed effects:
+##                Estimate Std. Error t value
+## (Intercept)    -0.26497    0.07857  -3.373
+## taskquadruplet -0.07218    0.01721  -4.193
+## tasksingles    -0.17604    0.01721 -10.227
+## 
+## Correlation of Fixed Effects:
+##             (Intr) tskqdr
+## taskqudrplt -0.110       
+## tasksingles -0.110  0.500
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{summary}\NormalTok{(partial2)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Linear mixed model fit by maximum likelihood  ['lmerMod']
+## Formula: log(rt.obj) ~ task + (1 | trial)
+##    Data: lau_exp
+## 
+##      AIC      BIC   logLik deviance df.resid 
+##  32560.2  32597.3 -16275.1  32550.2    12523 
+## 
+## Scaled residuals: 
+##      Min       1Q   Median       3Q      Max 
+## -10.8657  -0.4848   0.0853   0.5704   6.7579 
+## 
+## Random effects:
+##  Groups   Name        Variance Std.Dev.
+##  trial    (Intercept) 0.02341  0.1530  
+##  Residual             0.76991  0.8774  
+## Number of obs: 12528, groups:  trial, 432
+## 
+## Fixed effects:
+##                Estimate Std. Error t value
+## (Intercept)    -0.26408    0.01551 -17.028
+## taskquadruplet -0.07312    0.01937  -3.775
+## tasksingles    -0.17776    0.01942  -9.155
+## 
+## Correlation of Fixed Effects:
+##             (Intr) tskqdr
+## taskqudrplt -0.623       
+## tasksingles -0.623  0.494
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{summary}\NormalTok{(partial3)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Linear mixed model fit by maximum likelihood  ['lmerMod']
+## Formula: log(rt.obj) ~ task + (1 | subject) + (1 | trial)
+##    Data: lau_exp
+## 
+##      AIC      BIC   logLik deviance df.resid 
+##  29459.9  29504.6 -14724.0  29447.9    12522 
+## 
+## Scaled residuals: 
+##      Min       1Q   Median       3Q      Max 
+## -11.0248  -0.4909  -0.0222   0.5159   7.9938 
+## 
+## Random effects:
+##  Groups   Name        Variance Std.Dev.
+##  trial    (Intercept) 0.02977  0.1725  
+##  subject  (Intercept) 0.17485  0.4182  
+##  Residual             0.58883  0.7674  
+## Number of obs: 12528, groups:  trial, 432; subject, 29
+## 
+## Fixed effects:
+##                Estimate Std. Error t value
+## (Intercept)    -0.26384    0.07900  -3.340
+## taskquadruplet -0.07338    0.01698  -4.322
+## tasksingles    -0.17824    0.01703 -10.465
+## 
+## Correlation of Fixed Effects:
+##             (Intr) tskqdr
+## taskqudrplt -0.107       
+## tasksingles -0.107  0.493
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{summary}\NormalTok{(partial4)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Linear mixed model fit by maximum likelihood  ['lmerMod']
+## Formula: log(rt.obj) ~ task + (1 + task | subject)
+##    Data: lau_exp
+## 
+##      AIC      BIC   logLik deviance df.resid 
+##  29560.3  29634.7 -14770.2  29540.3    12518 
+## 
+## Scaled residuals: 
+##      Min       1Q   Median       3Q      Max 
+## -10.3756  -0.4957  -0.0211   0.5177   7.9126 
+## 
+## Random effects:
+##  Groups   Name           Variance Std.Dev. Corr       
+##  subject  (Intercept)    0.150959 0.38853             
+##           taskquadruplet 0.002911 0.05395   0.41      
+##           tasksingles    0.032202 0.17945   0.34 -0.72
+##  Residual                0.609222 0.78053             
+## Number of obs: 12528, groups:  subject, 29
+## 
+## Fixed effects:
+##                Estimate Std. Error t value
+## (Intercept)    -0.26497    0.07315  -3.622
+## taskquadruplet -0.07218    0.01980  -3.645
+## tasksingles    -0.17604    0.03745  -4.701
+## 
+## Correlation of Fixed Effects:
+##             (Intr) tskqdr
+## taskqudrplt  0.102       
+## tasksingles  0.244 -0.128
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{summary}\NormalTok{(partial5)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Linear mixed model fit by maximum likelihood  ['lmerMod']
+## Formula: log(rt.obj) ~ task + (1 + task | subject) + (1 | trial)
+##    Data: lau_exp
+## 
+##      AIC      BIC   logLik deviance df.resid 
+##  29327.7  29409.5 -14652.8  29305.7    12517 
+## 
+## Scaled residuals: 
+##      Min       1Q   Median       3Q      Max 
+## -10.5363  -0.4958  -0.0279   0.5119   8.0799 
+## 
+## Random effects:
+##  Groups   Name           Variance Std.Dev. Corr       
+##  trial    (Intercept)    0.02995  0.17307             
+##  subject  (Intercept)    0.14918  0.38623             
+##           taskquadruplet 0.00400  0.06325   0.35      
+##           tasksingles    0.03227  0.17964   0.38 -0.58
+##  Residual                0.57917  0.76103             
+## Number of obs: 12528, groups:  trial, 432; subject, 29
+## 
+## Fixed effects:
+##                Estimate Std. Error t value
+## (Intercept)    -0.26407    0.07317  -3.609
+## taskquadruplet -0.07225    0.02054  -3.518
+## tasksingles    -0.17868    0.03739  -4.778
+## 
+## Correlation of Fixed Effects:
+##             (Intr) tskqdr
+## taskqudrplt  0.099       
+## tasksingles  0.279 -0.114
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{model\_text }\OtherTok{\textless{}{-}} \FunctionTok{c}\NormalTok{(}\StringTok{"subject"}\NormalTok{, }\StringTok{"trial"}\NormalTok{, }\StringTok{"subject og trial"}\NormalTok{, }\StringTok{"task{-}subject"}\NormalTok{,}\StringTok{"task{-}subject og trial"}\NormalTok{)}
+\CommentTok{\#sigma explains variance}
+\NormalTok{sigmas }\OtherTok{\textless{}{-}} \FunctionTok{c}\NormalTok{(}\FunctionTok{sigma}\NormalTok{(partial1),}\FunctionTok{sigma}\NormalTok{(partial2),}\FunctionTok{sigma}\NormalTok{(partial3), }\FunctionTok{sigma}\NormalTok{(partial4), }\FunctionTok{sigma}\NormalTok{(partial5))}
+\NormalTok{AIC }\OtherTok{\textless{}{-}} \FunctionTok{c}\NormalTok{(}\FunctionTok{AIC}\NormalTok{(partial1), }\FunctionTok{AIC}\NormalTok{(partial2), }\FunctionTok{AIC}\NormalTok{(partial3), }\FunctionTok{AIC}\NormalTok{(partial4), }\FunctionTok{AIC}\NormalTok{(partial5))}
+\NormalTok{mtable }\OtherTok{\textless{}{-}} \FunctionTok{as\_tibble}\NormalTok{(}\FunctionTok{cbind}\NormalTok{(model\_text,sigmas,AIC))}
+\NormalTok{mtable}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## # A tibble: 5 x 3
+##   model_text            sigmas            AIC             
+##   <chr>                 <chr>             <chr>           
+## 1 subject               0.786510836267907 29685.3126188652
+## 2 trial                 0.877443929266087 32560.1503149819
+## 3 subject og trial      0.767353686772583 29459.9382110624
+## 4 task-subject          0.780526761806287 29560.3359953566
+## 5 task-subject og trial 0.761030007720908 29327.6815811547
+\end{verbatim}
+
+If the partial5 model was too complex the AIC would `punish' the model,
+but it doesn't. The model where \emph{log(rt.obj) \textasciitilde{} task
++ (1+task\textbar subject) + (1\textbar trial)} is the one with both the
+lowest AIC and the lowest sigma, which means that it's the one with most
+variance explained.
+
+\begin{enumerate}
+\def\labelenumi{\roman{enumi}.}
+\setcounter{enumi}{1}
+\tightlist
+\item
+  explain in your own words what your chosen models says about response
+  times between the different tasks\\
+  Both in the tasks where it's quadruplets and singles the reaction time
+  for the participant is shorter compared to the paired task. This we
+  see on the output from the partial5 model since both estimates are
+  negative (these numbers are on the log scale). By adding subject and
+  trial as random intercepts we make sure that they have their own
+  baseline reaction time.
+\end{enumerate}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi})}
+\setcounter{enumi}{2}
+\tightlist
+\item
+  Now add \emph{pas} and its interaction with \emph{task} to the fixed
+  effects
+\end{enumerate}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{interactio }\OtherTok{\textless{}{-}} \FunctionTok{lm}\NormalTok{(}\FunctionTok{log}\NormalTok{(rt.obj) }\SpecialCharTok{\textasciitilde{}}\NormalTok{ task}\SpecialCharTok{*}\NormalTok{pas, lau\_exp)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{enumerate}
+\def\labelenumi{\roman{enumi}.}
+\tightlist
+\item
+  how many types of group intercepts (random effects) can you add
+  without ending up with convergence issues or singular fits?
+\end{enumerate}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{interactio\_mix }\OtherTok{\textless{}{-}} \FunctionTok{lmer}\NormalTok{(}\FunctionTok{log}\NormalTok{(rt.obj) }\SpecialCharTok{\textasciitilde{}}\NormalTok{ task}\SpecialCharTok{*}\NormalTok{pas }\SpecialCharTok{+}\NormalTok{ (}\DecValTok{1}\SpecialCharTok{|}\NormalTok{subject), }\AttributeTok{data =}\NormalTok{ lau\_exp, }\AttributeTok{REML =}\NormalTok{ F)}
+\NormalTok{interactio\_mix1 }\OtherTok{\textless{}{-}} \FunctionTok{lmer}\NormalTok{(}\FunctionTok{log}\NormalTok{(rt.obj) }\SpecialCharTok{\textasciitilde{}}\NormalTok{ task}\SpecialCharTok{*}\NormalTok{pas }\SpecialCharTok{+}\NormalTok{ (}\DecValTok{1}\SpecialCharTok{|}\NormalTok{trial) }\SpecialCharTok{+}\NormalTok{ (}\DecValTok{1}\SpecialCharTok{|}\NormalTok{subject), }\AttributeTok{data =}\NormalTok{ lau\_exp, }\AttributeTok{REML =}\NormalTok{ F)}
+\NormalTok{interactio\_mix2 }\OtherTok{\textless{}{-}} \FunctionTok{lmer}\NormalTok{(}\FunctionTok{log}\NormalTok{(rt.obj) }\SpecialCharTok{\textasciitilde{}}\NormalTok{ task}\SpecialCharTok{*}\NormalTok{pas }\SpecialCharTok{+}\NormalTok{ (}\DecValTok{1}\SpecialCharTok{|}\NormalTok{trial) }\SpecialCharTok{+}\NormalTok{ (}\DecValTok{1}\SpecialCharTok{|}\NormalTok{subject) }\SpecialCharTok{+}\NormalTok{ (}\DecValTok{1}\SpecialCharTok{|}\NormalTok{cue), }\AttributeTok{data =}\NormalTok{ lau\_exp, }\AttributeTok{REML =}\NormalTok{ F)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{enumerate}
+\def\labelenumi{\roman{enumi}.}
+\setcounter{enumi}{1}
+\tightlist
+\item
+  create a model by adding random intercepts (without modelling slopes)
+  that results in a singular fit - then use
+  \texttt{print(VarCorr(\textless{}your.model\textgreater{}),\ comp=\textquotesingle{}Variance\textquotesingle{})}
+  to inspect the variance vector - explain why the fit is singular
+  (Hint: read the first paragraph under details in the help for
+  \texttt{isSingular})
+\end{enumerate}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{sing\_fit }\OtherTok{\textless{}{-}} \FunctionTok{lmer}\NormalTok{(}\FunctionTok{log}\NormalTok{(rt.obj) }\SpecialCharTok{\textasciitilde{}}\NormalTok{ task}\SpecialCharTok{*}\NormalTok{pas }\SpecialCharTok{+}\NormalTok{ (}\DecValTok{1}\SpecialCharTok{|}\NormalTok{trial) }\SpecialCharTok{+}\NormalTok{ (}\DecValTok{1}\SpecialCharTok{|}\NormalTok{subject) }\SpecialCharTok{+}\NormalTok{ (}\DecValTok{1}\SpecialCharTok{|}\NormalTok{cue) }\SpecialCharTok{+}\NormalTok{ (}\DecValTok{1}\SpecialCharTok{|}\NormalTok{target.contrast), }\AttributeTok{data =}\NormalTok{ lau\_exp, }\AttributeTok{REML =}\NormalTok{ F)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## boundary (singular) fit: see ?isSingular
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{print}\NormalTok{(}\FunctionTok{VarCorr}\NormalTok{(sing\_fit), }\AttributeTok{comp=}\StringTok{\textquotesingle{}Variance\textquotesingle{}}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##  Groups          Name        Variance  
+##  trial           (Intercept) 2.6842e-02
+##  cue             (Intercept) 4.0356e-03
+##  target.contrast (Intercept) 4.8074e-11
+##  subject         (Intercept) 1.6287e-01
+##  Residual                    5.7156e-01
+\end{verbatim}
+
+\begin{enumerate}
+\def\labelenumi{\roman{enumi}.}
+\setcounter{enumi}{2}
+\tightlist
+\item
+  in your own words - how could you explain why your model would result
+  in a singular fit?\\
+  The fit is singular because the random-effects variances are close to
+  0. This is because we have too many random effects. They do each not
+  explain a lot of variance in the data, this can also occour when the
+  variables are higly correlated.
+\end{enumerate}
+
+\hypertarget{exercise-3}{%
+\subsection{Exercise 3}\label{exercise-3}}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi})}
+\tightlist
+\item
+  Initialize a new data frame, \texttt{data.count}. \emph{count} should
+  indicate the number of times they categorized their experience as
+  \emph{pas} 1-4 for each \emph{task}. I.e. the data frame would have
+  for subject 1: for task:singles, pas1 was used \# times, pas2 was used
+  \# times, pas3 was used \# times and pas4 was used \# times. You would
+  then do the same for task:pairs and task:quadruplet
+\end{enumerate}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{data.count }\OtherTok{\textless{}{-}}\NormalTok{ lau\_exp }\SpecialCharTok{\%\textgreater{}\%} 
+  \FunctionTok{group\_by}\NormalTok{(subject, pas, task) }\SpecialCharTok{\%\textgreater{}\%} 
+  \FunctionTok{summarise}\NormalTok{(}\AttributeTok{count=}\FunctionTok{n}\NormalTok{())}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## `summarise()` has grouped output by 'subject', 'pas'. You can override using the `.groups` argument.
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{data.count}\SpecialCharTok{$}\NormalTok{pas }\OtherTok{\textless{}{-}} \FunctionTok{as.factor}\NormalTok{(data.count}\SpecialCharTok{$}\NormalTok{pas)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi})}
+\setcounter{enumi}{1}
+\tightlist
+\item
+  Now fit a multilevel model that models a unique ``slope'' for
+  \emph{pas} for each \emph{subject} with the interaction between
+  \emph{pas} and \emph{task} and their main effects being modeled
+
+  \begin{enumerate}
+  \def\labelenumii{\roman{enumii}.}
+  \tightlist
+  \item
+    which family should be used?
+  \end{enumerate}
+\end{enumerate}
+
+The `poisson' should be used as we are modeling count data
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{poisson\_model }\OtherTok{\textless{}{-}} \FunctionTok{glmer}\NormalTok{(count }\SpecialCharTok{\textasciitilde{}}\NormalTok{ pas}\SpecialCharTok{*}\NormalTok{task }\SpecialCharTok{+}\NormalTok{ (}\DecValTok{1} \SpecialCharTok{+}\NormalTok{ pas}\SpecialCharTok{|}\NormalTok{subject), }\AttributeTok{family =} \StringTok{"poisson"}\NormalTok{, }\AttributeTok{data =}\NormalTok{ data.count, }\FunctionTok{glmerControl}\NormalTok{(}\AttributeTok{optimizer=}\StringTok{"bobyqa"}\NormalTok{))}
+\FunctionTok{summary}\NormalTok{(poisson\_model)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Generalized linear mixed model fit by maximum likelihood (Laplace
+##   Approximation) [glmerMod]
+##  Family: poisson  ( log )
+## Formula: count ~ pas * task + (1 + pas | subject)
+##    Data: data.count
+## Control: glmerControl(optimizer = "bobyqa")
+## 
+##      AIC      BIC   logLik deviance df.resid 
+##   2779.0   2861.8  -1367.5   2735.0      297 
+## 
+## Scaled residuals: 
+##     Min      1Q  Median      3Q     Max 
+## -4.2797 -0.8249 -0.0760  0.7367  6.4498 
+## 
+## Random effects:
+##  Groups  Name        Variance Std.Dev. Corr             
+##  subject (Intercept) 0.5628   0.7502                    
+##          pas2        0.6562   0.8101   -0.73            
+##          pas3        1.1803   1.0864   -0.91  0.80      
+##          pas4        3.8601   1.9647   -0.91  0.50  0.80
+## Number of obs: 319, groups:  subject, 29
+## 
+## Fixed effects:
+##                     Estimate Std. Error z value Pr(>|z|)    
+## (Intercept)          3.61415    0.14254  25.355  < 2e-16 ***
+## pas2                -0.04098    0.15647  -0.262 0.793418    
+## pas3                -0.37077    0.20907  -1.773 0.076164 .  
+## pas4                -0.94171    0.37739  -2.495 0.012585 *  
+## taskquadruplet       0.06071    0.03732   1.627 0.103762    
+## tasksingles         -0.23490    0.04031  -5.828 5.62e-09 ***
+## pas2:taskquadruplet -0.04411    0.05520  -0.799 0.424197    
+## pas3:taskquadruplet -0.11069    0.06365  -1.739 0.082015 .  
+## pas4:taskquadruplet -0.11778    0.06279  -1.876 0.060665 .  
+## pas2:tasksingles     0.17454    0.05783   3.018 0.002543 ** 
+## pas3:tasksingles     0.23754    0.06457   3.679 0.000234 ***
+## pas4:tasksingles     0.59798    0.06098   9.807  < 2e-16 ***
+## ---
+## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+## 
+## Correlation of Fixed Effects:
+##             (Intr) pas2   pas3   pas4   tskqdr tsksng ps2:tskq ps3:tskq
+## pas2        -0.726                                                     
+## pas3        -0.893  0.772                                              
+## pas4        -0.880  0.477  0.764                                       
+## taskqudrplt -0.135  0.123  0.092  0.051                                
+## tasksingles -0.125  0.114  0.085  0.047  0.477                         
+## ps2:tskqdrp  0.091 -0.180 -0.062 -0.034 -0.676 -0.322                  
+## ps3:tskqdrp  0.079 -0.072 -0.149 -0.029 -0.586 -0.280  0.396           
+## ps4:tskqdrp  0.080 -0.073 -0.055 -0.079 -0.594 -0.283  0.402    0.348  
+## ps2:tsksngl  0.087 -0.171 -0.059 -0.033 -0.332 -0.697  0.486    0.195  
+## ps3:tsksngl  0.078 -0.071 -0.151 -0.030 -0.298 -0.624  0.201    0.485  
+## ps4:tsksngl  0.082 -0.075 -0.056 -0.085 -0.315 -0.661  0.213    0.185  
+##             ps4:tskq ps2:tsks ps3:tsks
+## pas2                                  
+## pas3                                  
+## pas4                                  
+## taskqudrplt                           
+## tasksingles                           
+## ps2:tskqdrp                           
+## ps3:tskqdrp                           
+## ps4:tskqdrp                           
+## ps2:tsksngl  0.198                    
+## ps3:tsksngl  0.177    0.435           
+## ps4:tsksngl  0.509    0.461    0.413
+\end{verbatim}
+
+\begin{enumerate}
+\def\labelenumi{\roman{enumi}.}
+\setcounter{enumi}{1}
+\item
+  why is a slope for \emph{pas} not really being modeled?\\
+  If you look at pas as a fixed effect on its own, it does not make much
+  sense; it does not make sense to use the ratings of pas to predict
+  count. We are interested in the interaction between pas and task,
+  since we can only use pas to say something in relation to task.
+\item
+  if you get a convergence error, try another algorithm (the default is
+  the \emph{Nelder\_Mead}) - try (\emph{bobyqa}) for which the
+  \texttt{dfoptim} package is needed. In \texttt{glmer}, you can add the
+  following for the \texttt{control} argument:
+  \texttt{glmerControl(optimizer="bobyqa")} (if you are interested, also
+  have a look at the function \texttt{allFit})
+\item
+  when you have a converging fit - fit a model with only the main
+  effects of \emph{pas} and \emph{task}. Compare this with the model
+  that also includes the interaction
+\end{enumerate}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{poisson\_model2 }\OtherTok{\textless{}{-}} \FunctionTok{glmer}\NormalTok{(count }\SpecialCharTok{\textasciitilde{}}\NormalTok{ pas }\SpecialCharTok{+}\NormalTok{ task }\SpecialCharTok{+}\NormalTok{ (}\DecValTok{1} \SpecialCharTok{+}\NormalTok{ pas}\SpecialCharTok{|}\NormalTok{subject), }\AttributeTok{family =} \StringTok{"poisson"}\NormalTok{, }\AttributeTok{data =}\NormalTok{ data.count, }\FunctionTok{glmerControl}\NormalTok{(}\AttributeTok{optimizer=}\StringTok{"bobyqa"}\NormalTok{))}
+
+\NormalTok{modelos }\OtherTok{\textless{}{-}} \FunctionTok{c}\NormalTok{(}\StringTok{"poisson\_model"}\NormalTok{, }\StringTok{"poisson\_model2"}\NormalTok{)}
+
+\CommentTok{\#finding residual standard deviation}
+\NormalTok{residual\_standard\_deviations }\OtherTok{\textless{}{-}} \FunctionTok{c}\NormalTok{(}\FunctionTok{sigma}\NormalTok{(poisson\_model), }\FunctionTok{sigma}\NormalTok{(poisson\_model2))}
+
+\CommentTok{\#finding AIC}
+\NormalTok{AIC\_values }\OtherTok{\textless{}{-}} \FunctionTok{c}\NormalTok{(}\FunctionTok{AIC}\NormalTok{(poisson\_model), }\FunctionTok{AIC}\NormalTok{(poisson\_model2))}
+
+\CommentTok{\#combining it all in a tibble}
+\FunctionTok{as.tibble}\NormalTok{(}\FunctionTok{cbind}\NormalTok{(modelos, residual\_standard\_deviations, AIC\_values))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Warning: `as.tibble()` was deprecated in tibble 2.0.0.
+## Please use `as_tibble()` instead.
+## The signature and semantics have changed, see `?as_tibble`.
+## This warning is displayed once every 8 hours.
+## Call `lifecycle::last_warnings()` to see where this warning was generated.
+\end{verbatim}
+
+\begin{verbatim}
+## # A tibble: 2 x 3
+##   modelos        residual_standard_deviations AIC_values      
+##   <chr>          <chr>                        <chr>           
+## 1 poisson_model  1                            2778.98742340758
+## 2 poisson_model2 1                            2933.26390057674
+\end{verbatim}
+
+\begin{enumerate}
+\def\labelenumi{\alph{enumi}.}
+\setcounter{enumi}{21}
+\tightlist
+\item
+  indicate which of the two models, you would choose and why\\
+  The interaction model has the lowest AIC, 2778. Besides that both
+  models has a residual standard deviation of 1, which is because you
+  cannot make a standard deviation on a logistic model.
+\end{enumerate}
+
+It does not make sense to include pas without it having an interaction
+with count since pas alone doesn't mean anything.
+
+\begin{enumerate}
+\def\labelenumi{\roman{enumi}.}
+\setcounter{enumi}{5}
+\tightlist
+\item
+  based on your chosen model - write a short report on what this says
+  about the distribution of ratings as dependent on \emph{pas} and
+  \emph{task}
+\end{enumerate}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{model\_text }\OtherTok{\textless{}{-}} \FunctionTok{c}\NormalTok{(}\StringTok{"Intercept"}\NormalTok{, }\StringTok{"Quadruplet"}\NormalTok{, }\StringTok{"Singles"}\NormalTok{)}
+\NormalTok{estimates }\OtherTok{\textless{}{-}} \FunctionTok{c}\NormalTok{(poisson\_model}\SpecialCharTok{@}\NormalTok{beta[}\DecValTok{1}\NormalTok{], poisson\_model}\SpecialCharTok{@}\NormalTok{beta[}\DecValTok{5}\NormalTok{], poisson\_model}\SpecialCharTok{@}\NormalTok{beta[}\DecValTok{6}\NormalTok{])}
+\NormalTok{estimatesExp }\OtherTok{\textless{}{-}} \FunctionTok{c}\NormalTok{(}\FunctionTok{exp}\NormalTok{(poisson\_model}\SpecialCharTok{@}\NormalTok{beta[}\DecValTok{1}\NormalTok{]), }\FunctionTok{exp}\NormalTok{(poisson\_model}\SpecialCharTok{@}\NormalTok{beta[}\DecValTok{5}\NormalTok{]), }\FunctionTok{exp}\NormalTok{(poisson\_model}\SpecialCharTok{@}\NormalTok{beta[}\DecValTok{6}\NormalTok{]))}
+\NormalTok{tasktable }\OtherTok{\textless{}{-}} \FunctionTok{as\_tibble}\NormalTok{(}\FunctionTok{cbind}\NormalTok{(model\_text,estimates,estimatesExp))}
+\NormalTok{tasktable}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## # A tibble: 3 x 3
+##   model_text estimates          estimatesExp    
+##   <chr>      <chr>              <chr>           
+## 1 Intercept  3.61414675437776   37.1196602221413
+## 2 Quadruplet 0.0607086477095806 1.06258928126238
+## 3 Singles    -0.234903744627158 0.7906469499831
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{model\_text2 }\OtherTok{\textless{}{-}} \FunctionTok{c}\NormalTok{(}\StringTok{"Pas 2, quadruplet"}\NormalTok{, }\StringTok{"Pas 3, quadruplet"}\NormalTok{, }\StringTok{"Pas 4, quadruplet"}\NormalTok{,}\StringTok{"Pas 2, singles"}\NormalTok{, }\StringTok{"Pas 3, singles"}\NormalTok{, }\StringTok{"Pas 4, singles"}\NormalTok{)}
+\NormalTok{estimates2 }\OtherTok{\textless{}{-}} \FunctionTok{c}\NormalTok{(poisson\_model}\SpecialCharTok{@}\NormalTok{beta[}\DecValTok{7}\NormalTok{], poisson\_model}\SpecialCharTok{@}\NormalTok{beta[}\DecValTok{8}\NormalTok{], poisson\_model}\SpecialCharTok{@}\NormalTok{beta[}\DecValTok{9}\NormalTok{], poisson\_model}\SpecialCharTok{@}\NormalTok{beta[}\DecValTok{10}\NormalTok{], poisson\_model}\SpecialCharTok{@}\NormalTok{beta[}\DecValTok{11}\NormalTok{], poisson\_model}\SpecialCharTok{@}\NormalTok{beta[}\DecValTok{12}\NormalTok{])}
+\NormalTok{estimatesExp2 }\OtherTok{\textless{}{-}} \FunctionTok{c}\NormalTok{(}\FunctionTok{exp}\NormalTok{(poisson\_model}\SpecialCharTok{@}\NormalTok{beta[}\DecValTok{7}\NormalTok{]), }\FunctionTok{exp}\NormalTok{(poisson\_model}\SpecialCharTok{@}\NormalTok{beta[}\DecValTok{8}\NormalTok{]), }\FunctionTok{exp}\NormalTok{(poisson\_model}\SpecialCharTok{@}\NormalTok{beta[}\DecValTok{9}\NormalTok{]), }\FunctionTok{exp}\NormalTok{(poisson\_model}\SpecialCharTok{@}\NormalTok{beta[}\DecValTok{10}\NormalTok{]), }\FunctionTok{exp}\NormalTok{(poisson\_model}\SpecialCharTok{@}\NormalTok{beta[}\DecValTok{11}\NormalTok{]), }\FunctionTok{exp}\NormalTok{(poisson\_model}\SpecialCharTok{@}\NormalTok{beta[}\DecValTok{12}\NormalTok{]))}
+\NormalTok{interactiontable }\OtherTok{\textless{}{-}} \FunctionTok{as\_tibble}\NormalTok{(}\FunctionTok{cbind}\NormalTok{(model\_text2,estimates2,estimatesExp2))}
+\NormalTok{interactiontable}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## # A tibble: 6 x 3
+##   model_text2       estimates2         estimatesExp2    
+##   <chr>             <chr>              <chr>            
+## 1 Pas 2, quadruplet -0.044110412632432 0.95684830350036 
+## 2 Pas 3, quadruplet -0.110691997510834 0.895214434745132
+## 3 Pas 4, quadruplet -0.117784926708673 0.88888720795511 
+## 4 Pas 2, singles    0.174541036125271  1.19069960308055 
+## 5 Pas 3, singles    0.237540984928311  1.2681269698186  
+## 6 Pas 4, singles    0.597975351136592  1.8184333817306
+\end{verbatim}
+
+First, let's look at the task estimates. Our intercept signifies pas1,
+and pas1 is the most uncertain rating. When keeping the rest of the
+variables constant and changing task from pairs to quadruplet it
+increases the count (positive estimate, 0.06). On the other hand looking
+at the task to singles it decreases in count (negative estimate -0.23).
+This means that the harder the task the more the count of pas1 increases
+while easier tasks decreases the count of pas1.Seen on the output from
+the \emph{poisson\_model} the easier the task (i.e.~the fewer numbers in
+a task) the more sure the subject is on whether or not they've answered
+the question correctly, ergo the higher pas. And vice versa the
+estimates for the quadruplets task are all negative, which means the
+subjects in these cases have been more unsure of their answers.
+
+Looking at the exponential estimates in the latter table we see that
+count of pas1 increases by 6\% compared to the baseline when going from
+the pairs task to the quadruplet task. Subjects are less sure in the
+quadruplet task, which means a higher count of pas1 compared to the
+singles task where the count of pas4 for the subjects is much higher.
+This makes much sense, since the pairs tasks are easier than the
+quadruplet tasks, since it has fewer numbers in it.
+
+\begin{enumerate}
+\def\labelenumi{\roman{enumi}.}
+\setcounter{enumi}{6}
+\tightlist
+\item
+  include a plot that shows the estimated amount of ratings for four
+  subjects of your choosing
+\end{enumerate}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{dfplot }\OtherTok{\textless{}{-}}\NormalTok{  data.count}\SpecialCharTok{\%\textgreater{}\%} 
+  \FunctionTok{filter}\NormalTok{(subject }\SpecialCharTok{==} \StringTok{\textquotesingle{}3\textquotesingle{}} \SpecialCharTok{|}\NormalTok{ subject }\SpecialCharTok{==} \StringTok{\textquotesingle{}7\textquotesingle{}} \SpecialCharTok{|}\NormalTok{ subject }\SpecialCharTok{==} \StringTok{\textquotesingle{}17\textquotesingle{}} \SpecialCharTok{|}\NormalTok{ subject }\SpecialCharTok{==} \StringTok{\textquotesingle{}28\textquotesingle{}}\NormalTok{)}
+
+\NormalTok{dfplot}\SpecialCharTok{$}\NormalTok{predicted }\OtherTok{\textless{}{-}} \FunctionTok{predict}\NormalTok{(poisson\_model, }\AttributeTok{newdata=}\NormalTok{dfplot)}
+
+\FunctionTok{ggplot}\NormalTok{(dfplot, }\FunctionTok{aes}\NormalTok{(}\AttributeTok{x =}\NormalTok{ pas, }\AttributeTok{y =} \FunctionTok{exp}\NormalTok{(predicted), }\AttributeTok{fill=}\NormalTok{pas)) }\SpecialCharTok{+} 
+  \FunctionTok{geom\_bar}\NormalTok{(}\AttributeTok{stat =} \StringTok{\textquotesingle{}identity\textquotesingle{}}\NormalTok{) }\SpecialCharTok{+} 
+  \FunctionTok{facet\_wrap}\NormalTok{(}\SpecialCharTok{\textasciitilde{}}\NormalTok{ subject)}\SpecialCharTok{+}
+  \FunctionTok{theme\_minimal}\NormalTok{()}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{practical_exercise_3_files/figure-latex/unnamed-chunk-18-1.pdf}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi})}
+\setcounter{enumi}{2}
+\tightlist
+\item
+  Finally, fit a multilevel model that models \emph{correct} as
+  dependent on \emph{task} with a unique intercept for each
+  \emph{subject}
+\end{enumerate}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{last\_one }\OtherTok{\textless{}{-}} \FunctionTok{glmer}\NormalTok{(correct}\SpecialCharTok{\textasciitilde{}}\NormalTok{task }\SpecialCharTok{+}\NormalTok{ (}\DecValTok{1}\SpecialCharTok{|}\NormalTok{subject), }\AttributeTok{data =}\NormalTok{lau\_exp, }\AttributeTok{family =} \StringTok{\textquotesingle{}binomial\textquotesingle{}}\NormalTok{)}
+\FunctionTok{summary}\NormalTok{(last\_one)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Generalized linear mixed model fit by maximum likelihood (Laplace
+##   Approximation) [glmerMod]
+##  Family: binomial  ( logit )
+## Formula: correct ~ task + (1 | subject)
+##    Data: lau_exp
+## 
+##      AIC      BIC   logLik deviance df.resid 
+##  13636.3  13666.0  -6814.1  13628.3    12524 
+## 
+## Scaled residuals: 
+##     Min      1Q  Median      3Q     Max 
+## -3.7450 -1.0599  0.4791  0.6483  0.9795 
+## 
+## Random effects:
+##  Groups  Name        Variance Std.Dev.
+##  subject (Intercept) 0.3622   0.6018  
+## Number of obs: 12528, groups:  subject, 29
+## 
+## Fixed effects:
+##                Estimate Std. Error z value Pr(>|z|)    
+## (Intercept)     1.11896    0.11773   9.504  < 2e-16 ***
+## taskquadruplet -0.07496    0.05082  -1.475  0.14019    
+## tasksingles     0.16603    0.05218   3.182  0.00146 ** 
+## ---
+## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+## 
+## Correlation of Fixed Effects:
+##             (Intr) tskqdr
+## taskqudrplt -0.220       
+## tasksingles -0.213  0.494
+\end{verbatim}
+
+\begin{enumerate}
+\def\labelenumi{\roman{enumi}.}
+\item
+  does \emph{task} explain performance?\\
+  It seems as if task has some explanatory power since task singles is
+  significantly different from task pairs.
+\item
+  add \emph{pas} as a main effect on top of \emph{task} - what are the
+  consequences of that?
+\end{enumerate}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{last\_one2 }\OtherTok{\textless{}{-}} \FunctionTok{glmer}\NormalTok{(correct}\SpecialCharTok{\textasciitilde{}}\NormalTok{task }\SpecialCharTok{+}\NormalTok{ pas }\SpecialCharTok{+}\NormalTok{ (}\DecValTok{1}\SpecialCharTok{|}\NormalTok{subject), }\AttributeTok{data =}\NormalTok{lau\_exp, }\AttributeTok{family =} \StringTok{\textquotesingle{}binomial\textquotesingle{}}\NormalTok{)}
+\FunctionTok{summary}\NormalTok{(last\_one2)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Generalized linear mixed model fit by maximum likelihood (Laplace
+##   Approximation) [glmerMod]
+##  Family: binomial  ( logit )
+## Formula: correct ~ task + pas + (1 | subject)
+##    Data: lau_exp
+## 
+##      AIC      BIC   logLik deviance df.resid 
+##  12258.2  12295.4  -6124.1  12248.2    12523 
+## 
+## Scaled residuals: 
+##     Min      1Q  Median      3Q     Max 
+## -5.7622 -0.7280  0.3227  0.5954  1.6353 
+## 
+## Random effects:
+##  Groups  Name        Variance Std.Dev.
+##  subject (Intercept) 0.2424   0.4923  
+## Number of obs: 12528, groups:  subject, 29
+## 
+## Fixed effects:
+##                Estimate Std. Error z value Pr(>|z|)    
+## (Intercept)    -0.81547    0.11200  -7.281 3.31e-13 ***
+## taskquadruplet -0.02632    0.05372  -0.490    0.624    
+## tasksingles    -0.03492    0.05569  -0.627    0.531    
+## pas             0.94641    0.02788  33.951  < 2e-16 ***
+## ---
+## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+## 
+## Correlation of Fixed Effects:
+##             (Intr) tskqdr tsksng
+## taskqudrplt -0.253              
+## tasksingles -0.190  0.488       
+## pas         -0.461  0.020 -0.095
+\end{verbatim}
+
+Task is no longer significant when adding pas as a main effect. It seems
+like \emph{pas} explains whether or not the subject answered the task
+correctly better than task. ???
+
+\begin{enumerate}
+\def\labelenumi{\roman{enumi}.}
+\setcounter{enumi}{2}
+\tightlist
+\item
+  now fit a multilevel model that models \emph{correct} as dependent on
+  \emph{pas} with a unique intercept for each \emph{subject}
+\end{enumerate}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{last\_one3 }\OtherTok{\textless{}{-}} \FunctionTok{glmer}\NormalTok{(correct}\SpecialCharTok{\textasciitilde{}}\NormalTok{pas }\SpecialCharTok{+}\NormalTok{ (}\DecValTok{1}\SpecialCharTok{|}\NormalTok{subject), }\AttributeTok{data =}\NormalTok{lau\_exp, }\AttributeTok{family =} \StringTok{\textquotesingle{}binomial\textquotesingle{}}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{enumerate}
+\def\labelenumi{\roman{enumi}.}
+\setcounter{enumi}{3}
+\tightlist
+\item
+  finally, fit a model that models the interaction between \emph{task}
+  and \emph{pas} and their main effects
+\end{enumerate}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{last\_one4 }\OtherTok{\textless{}{-}} \FunctionTok{glmer}\NormalTok{(correct}\SpecialCharTok{\textasciitilde{}}\NormalTok{task}\SpecialCharTok{*}\NormalTok{pas }\SpecialCharTok{+}\NormalTok{ (}\DecValTok{1}\SpecialCharTok{|}\NormalTok{subject), }\AttributeTok{data =}\NormalTok{lau\_exp, }\AttributeTok{family =} \StringTok{\textquotesingle{}binomial\textquotesingle{}}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{enumerate}
+\def\labelenumi{\alph{enumi}.}
+\setcounter{enumi}{21}
+\tightlist
+\item
+  describe in your words which model is the best in explaining the
+  variance in accuracy
+\end{enumerate}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{accuracyfun }\OtherTok{\textless{}{-}} \ControlFlowTok{function}\NormalTok{(model, data) \{}
+\NormalTok{  predicted }\OtherTok{\textless{}{-}} \FunctionTok{predict}\NormalTok{(model, data, }\AttributeTok{type=}\StringTok{\textquotesingle{}response\textquotesingle{}}\NormalTok{)}
+\NormalTok{  predicted }\OtherTok{\textless{}{-}} \FunctionTok{ifelse}\NormalTok{(predicted }\SpecialCharTok{\textgreater{}} \FloatTok{0.5}\NormalTok{, }\DecValTok{1}\NormalTok{, }\DecValTok{0}\NormalTok{)}
+\NormalTok{  tab }\OtherTok{\textless{}{-}}  \FunctionTok{table}\NormalTok{(data}\SpecialCharTok{$}\NormalTok{correct, predicted)}
+\NormalTok{  accuracy }\OtherTok{\textless{}{-}}\NormalTok{ (tab[}\DecValTok{1}\NormalTok{,}\DecValTok{1}\NormalTok{] }\SpecialCharTok{+}\NormalTok{ tab[}\DecValTok{2}\NormalTok{,}\DecValTok{2}\NormalTok{])}\SpecialCharTok{/}\NormalTok{(tab[}\DecValTok{1}\NormalTok{,}\DecValTok{1}\NormalTok{] }\SpecialCharTok{+}\NormalTok{ tab[}\DecValTok{2}\NormalTok{,}\DecValTok{2}\NormalTok{] }\SpecialCharTok{+}\NormalTok{tab[}\DecValTok{1}\NormalTok{,}\DecValTok{2}\NormalTok{] }\SpecialCharTok{+}\NormalTok{ tab[}\DecValTok{2}\NormalTok{,}\DecValTok{1}\NormalTok{])}
+  \FunctionTok{return}\NormalTok{(accuracy)}
+  
+\NormalTok{\}}
+
+\FunctionTok{accuracyfun}\NormalTok{(last\_one2, lau\_exp)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 0.7421775
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{accuracyfun}\NormalTok{(last\_one3, lau\_exp)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 0.7421775
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{accuracyfun}\NormalTok{(last\_one4, lau\_exp)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 0.7409004
+\end{verbatim}
+
+\end{document}
