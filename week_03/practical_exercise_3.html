@@ -9,7 +9,11 @@
 <meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
 
 
+<<<<<<< HEAD
 <meta name="author" content="Caroline Hommel" />
+=======
+<meta name="author" content="[FILL IN YOUR NAME]" />
+>>>>>>> 67e1d0a3b1ad7bd5b62d537d1ee3bb7d88a00e1c
 
 
 <title>practical_exercise_3, Methods 3, 2021, autumn semester</title>
@@ -165,12 +169,18 @@ pre code {
 
 
 <h1 class="title toc-ignore">practical_exercise_3, Methods 3, 2021, autumn semester</h1>
+<<<<<<< HEAD
 <h4 class="author">Caroline Hommel</h4>
 <h4 class="date">4th of October 2021</h4>
+=======
+<h4 class="author">[FILL IN YOUR NAME]</h4>
+<h4 class="date">[FILL IN THE DATE]</h4>
+>>>>>>> 67e1d0a3b1ad7bd5b62d537d1ee3bb7d88a00e1c
 
 </div>
 
 
+<<<<<<< HEAD
 <div id="exercises-and-objectives" class="section level1">
 <h1>Exercises and objectives</h1>
 <p>The objectives of the exercises of this assignment are:<br />
@@ -319,11 +329,46 @@ do.call(grid.arrange,  plots)</code></pre>
 Partial pooling allows for a generalization of the subjects within the data set, since it by doing a random intercept and slope takes individuality into account, but it doesn’t over fit the model to each subject like a no-pooling model would do. A complete pooling model on the other hand wouldn’t take individuality into account and thereby over fit a model to each subject. By that one would in theory only be able to tell something about that specific subjcet and no generalization is then possible.</li>
 </ol>
 <p>…For some reason my R doesn’t want to draw lines in this plot…</p>
+=======
+<style type="text/css">
+  body{
+  font-size: 14pt;
+}
+</style>
+<div id="exercises-and-objectives" class="section level1">
+<h1>Exercises and objectives</h1>
+<p>The objectives of the exercises of this assignment are:<br />
+1) Download and organise the data and model and plot staircase responses based on fits of logistic functions<br />
+2) Fit multilevel models for response times<br />
+3) Fit multilevel models for count data</p>
+<p>REMEMBER: In your report, make sure to include code that can reproduce the answers requested in the exercises below (<strong>MAKE A KNITTED VERSION</strong>)<br />
+REMEMBER: This assignment will be part of your final portfolio</p>
+<div id="exercise-1" class="section level2">
+<h2>Exercise 1</h2>
+<p>Go to <a href="https://osf.io/ecxsj/files/" class="uri">https://osf.io/ecxsj/files/</a> and download the files associated with Experiment 2 (there should be 29).<br />
+The data is associated with Experiment 2 of the article at the following DOI <a href="https://doi.org/10.1016/j.concog.2019.03.007" class="uri">https://doi.org/10.1016/j.concog.2019.03.007</a></p>
+<ol style="list-style-type: decimal">
+<li>Put the data from all subjects into a single data frame<br />
+</li>
+<li>Describe the data and construct extra variables from the existing variables
+<ol style="list-style-type: lower-roman">
+<li>add a variable to the data frame and call it <em>correct</em> (have it be a <em>logical</em> variable). Assign a 1 to each row where the subject indicated the correct answer and a 0 to each row where the subject indicated the incorrect answer (<strong>Hint:</strong> the variable <em>obj.resp</em> indicates whether the subject answered “even”, <em>e</em> or “odd”, <em>o</em>, and the variable <em>target_type</em> indicates what was actually presented.</li>
+<li>describe what the following variables in the data frame contain, <em>trial.type</em>, <em>pas</em>, <em>trial</em>, <em>target.contrast</em>, <em>cue</em>, <em>task</em>, <em>target_type</em>, <em>rt.subj</em>, <em>rt.obj</em>, <em>obj.resp</em>, <em>subject</em> and <em>correct</em>. (That means you can ignore the rest of the variables in your description). For each of them, indicate and argue for what <code>class</code> they should be classified into, e.g. <em>factor</em>, <em>numeric</em> etc.<br />
+</li>
+<li>for the staircasing part <strong>only</strong>, create a plot for each subject where you plot the estimated function (on the <em>target.contrast</em> range from 0-1) based on the fitted values of a model (use <code>glm</code>) that models <em>correct</em> as dependent on <em>target.contrast</em>. These plots will be our <em>no-pooling</em> model. Comment on the fits - do we have enough data to plot the logistic functions?<br />
+</li>
+<li>on top of those plots, add the estimated functions (on the <em>target.contrast</em> range from 0-1) for each subject based on partial pooling model (use <code>glmer</code> from the package <code>lme4</code>) where unique intercepts and slopes for <em>target.contrast</em> are modelled for each <em>subject</em><br />
+</li>
+<li>in your own words, describe how the partial pooling model allows for a better fit for each subject</li>
+</ol></li>
+</ol>
+>>>>>>> 67e1d0a3b1ad7bd5b62d537d1ee3bb7d88a00e1c
 </div>
 <div id="exercise-2" class="section level2">
 <h2>Exercise 2</h2>
 <p>Now we <strong>only</strong> look at the <em>experiment</em> trials (<em>trial.type</em>)</p>
 <ol style="list-style-type: decimal">
+<<<<<<< HEAD
 <li>Pick four subjects and plot their Quantile-Quantile (Q-Q) plots for the residuals of their objective response times (<em>rt.obj</em>) based on a model where only intercept is modeled</li>
 </ol>
 <pre class="r"><code>#filtering to only get the experiment trials
@@ -573,11 +618,35 @@ interactio_mix2 &lt;- lmer(log(rt.obj) ~ task*pas + (1|trial) + (1|subject) + (1
 <ol start="3" style="list-style-type: lower-roman">
 <li>in your own words - how could you explain why your model would result in a singular fit?<br />
 The fit is singular because the random-effects variances are close to 0. This is because we have too many random effects. They do each not explain a lot of variance in the data, this can also occour when the variables are higly correlated.</li>
+=======
+<li>Pick four subjects and plot their Quantile-Quantile (Q-Q) plots for the residuals of their objective response times (<em>rt.obj</em>) based on a model where only intercept is modelled
+<ol style="list-style-type: lower-roman">
+<li>comment on these<br />
+</li>
+<li>does a log-transformation of the response time data improve the Q-Q-plots?<br />
+</li>
+</ol></li>
+<li>Now do a partial pooling model modelling objective response times as dependent on <em>task</em>? (set <code>REML=FALSE</code> in your <code>lmer</code>-specification)
+<ol style="list-style-type: lower-roman">
+<li>which would you include among your random effects and why? (support your choices with relevant measures, taking into account variance explained and number of parameters going into the modelling)<br />
+</li>
+<li>explain in your own words what your chosen models says about response times between the different tasks<br />
+</li>
+</ol></li>
+<li>Now add <em>pas</em> and its interaction with <em>task</em> to the fixed effects
+<ol style="list-style-type: lower-roman">
+<li>how many types of group intercepts (random effects) can you add without ending up with convergence issues or singular fits?<br />
+</li>
+<li>create a model by adding random intercepts (without modelling slopes) that results in a singular fit - then use <code>print(VarCorr(&lt;your.model&gt;), comp=&#39;Variance&#39;)</code> to inspect the variance vector - explain why the fit is singular (Hint: read the first paragraph under details in the help for <code>isSingular</code>)</li>
+<li>in your own words - how could you explain why your model would result in a singular fit?</li>
+</ol></li>
+>>>>>>> 67e1d0a3b1ad7bd5b62d537d1ee3bb7d88a00e1c
 </ol>
 </div>
 <div id="exercise-3" class="section level2">
 <h2>Exercise 3</h2>
 <ol style="list-style-type: decimal">
+<<<<<<< HEAD
 <li>Initialize a new data frame, <code>data.count</code>. <em>count</em> should indicate the number of times they categorized their experience as <em>pas</em> 1-4 for each <em>task</em>. I.e. the data frame would have for subject 1: for task:singles, pas1 was used # times, pas2 was used # times, pas3 was used # times and pas4 was used # times. You would then do the same for task:pairs and task:quadruplet</li>
 </ol>
 <pre class="r"><code>data.count &lt;- lau_exp %&gt;% 
@@ -835,6 +904,43 @@ accuracyfun(last_one2, lau_exp)</code></pre>
 <pre><code>## [1] 0.7421775</code></pre>
 <pre class="r"><code>accuracyfun(last_one4, lau_exp)</code></pre>
 <pre><code>## [1] 0.7409004</code></pre>
+=======
+<li>Initialise a new data frame, <code>data.count</code>. <em>count</em> should indicate the number of times they categorized their experience as <em>pas</em> 1-4 for each <em>task</em>. I.e. the data frame would have for subject 1: for task:singles, pas1 was used # times, pas2 was used # times, pas3 was used # times and pas4 was used # times. You would then do the same for task:pairs and task:quadruplet</li>
+</ol>
+<pre class="r"><code>## you can start from this if you want to, but you can also make your own from scratch
+data.count &lt;- data.frame(count = numeric(), 
+                         pas = numeric(), ## remember to make this into a factor afterwards
+                         task = numeric(), ## and this too
+                         subject = numeric()) ## and this too</code></pre>
+<ol start="2" style="list-style-type: decimal">
+<li>Now fit a multilevel model that models a unique “slope” for <em>pas</em> for each <em>subject</em> with the interaction between <em>pas</em> and <em>task</em> and their main effects being modelled
+<ol style="list-style-type: lower-roman">
+<li>which family should be used?<br />
+</li>
+<li>why is a slope for <em>pas</em> not really being modelled?<br />
+</li>
+<li>if you get a convergence error, try another algorithm (the default is the <em>Nelder_Mead</em>) - try (<em>bobyqa</em>) for which the <code>dfoptim</code> package is needed. In <code>glmer</code>, you can add the following for the <code>control</code> argument: <code>glmerControl(optimizer=&quot;bobyqa&quot;)</code> (if you are interested, also have a look at the function <code>allFit</code>)</li>
+<li>when you have a converging fit - fit a model with only the main effects of <em>pas</em> and <em>task</em>. Compare this with the model that also includes the interaction<br />
+</li>
+<li>indicate which of the two models, you would choose and why<br />
+</li>
+<li>based on your chosen model - write a short report on what this says about the distribution of ratings as dependent on <em>pas</em> and <em>task</em><br />
+</li>
+<li>include a plot that shows the estimated amount of ratings for four subjects of your choosing</li>
+</ol></li>
+<li>Finally, fit a multilevel model that models <em>correct</em> as dependent on <em>task</em> with a unique intercept for each <em>subject</em>
+<ol style="list-style-type: lower-roman">
+<li>does <em>task</em> explain performance?<br />
+</li>
+<li>add <em>pas</em> as a main effect on top of <em>task</em> - what are the consequences of that?<br />
+</li>
+<li>now fit a multilevel model that models <em>correct</em> as dependent on <em>pas</em> with a unique intercept for each <em>subject</em></li>
+<li>finally, fit a model that models the interaction between <em>task</em> and <em>pas</em> and their main effects<br />
+</li>
+<li>describe in your words which model is the best in explaining the variance in accuracy</li>
+</ol></li>
+</ol>
+>>>>>>> 67e1d0a3b1ad7bd5b62d537d1ee3bb7d88a00e1c
 </div>
 </div>
 
