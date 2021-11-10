@@ -365,7 +365,10 @@ ggplot(newdat) +
   theme_minimal()
 ```
     iv. Comment on the differences between the fits - mention some advantages and disadvantages of each way  
+<<<<<<< HEAD
 ???
+=======
+>>>>>>> 6e01c6028f2d1bd1f1bf0a18730de6803e94eed7
 The differences is seen especially on pas1 (the red lines) and pas 2 (the green lines). the Pas1 line indicates that the sigmoid plot is restricted to stay above 50% chance, while in the second plot it is allowed to go below chance and besides that it allows to increase. 
 
 Besides this we only see a special difference in the pas2 (green line) from the first to the second plot. in the sigmoid 
@@ -441,6 +444,5 @@ ggplot(plotdf) +
 
   i. compare with the figure you made in 5.3.ii and comment on the differences between the fits - mention some advantages and disadvantages of both.
 
-???
 The overall tendencies are the same. We see in both plots that the estimated accuracy based on pas e.g. for the pas1 rating, the estimated accuracy does not improve when the participants are shown more target frames
 
